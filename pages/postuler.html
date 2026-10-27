@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StageHub - etudiant postuler</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+<section id="etudiant-postuler">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="offres-stage.html">Offres</a><a href="mes-candidatures.html">Mes candidatures</a><a href="convention.html">Convention</a><a href="suivi-stage.html">Suivi du stage</a><a href="notifications.html">Notifications</a><a href="mon-profil.html">Mon profil</a>
+      <div class="bas">Connecté : Étudiant<br><a href="../index.html">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <p><a href="detail-offre.html">&larr; Retour à l'offre</a></p>
+      <h1>Postuler : Développeur web PHP</h1>
+      <p class="sous">TechNord · Tanger · 3 mois</p>
+      <form class="carte" action="mes-candidatures.html" enctype="multipart/form-data">
+        <label for="etudiant-postuler-cv">CV (PDF) *</label>
+        <input type="file" id="etudiant-postuler-cv" name="cv" accept=".pdf" required>
+        <label for="etudiant-postuler-lettre">Lettre de motivation (facultatif)</label>
+        <textarea id="etudiant-postuler-lettre" name="lettre_motivation" placeholder="Écris quelques lignes..."></textarea>
+        <p class="aide">L'entreprise recevra une notification par e-mail.</p>
+        <div class="actions"><button class="btn btn-bleu" type="submit">Envoyer ma candidature</button><a class="btn btn-contour" href="offres-stage.html">Annuler</a></div>
+      </form>
+    </main>
+  </div>
+</section>
+</body>
+</html>
