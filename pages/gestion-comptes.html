@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StageHub - admin comptes</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+<section id="admin-comptes">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="gestion-comptes.html" class="actif">Comptes</a><a href="affecter-encadrant.html">Affectation encadrants</a><a href="statistiques.html">Statistiques</a><a href="notifications.html">Notifications</a>
+      <div class="bas">Connecté : Admin<br><a href="../index.html">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Gestion des comptes</h1>
+      <p class="sous">Réinitialiser un mot de passe ou désactiver un compte.</p>
+      <div class="tableau"><table>
+        <tr><th>Nom</th><th>E-mail</th><th>Rôle</th><th>Compte</th><th>Actions</th></tr>
+        <tr><td>Youssef Benali</td><td>y.benali@exemple.ma</td><td>Étudiant</td><td><span class="etat e-ok">Actif</span></td><td><a href="#">Réinitialiser</a> · <a href="#">Désactiver</a></td></tr>
+        <tr><td>TechNord</td><td>contact@technord.ma</td><td>Entreprise</td><td><span class="etat e-ok">Actif</span></td><td><a href="#">Réinitialiser</a> · <a href="#">Désactiver</a></td></tr>
+        <tr><td>Pr. Alaoui</td><td>alaoui@univ.ma</td><td>Encadrant</td><td><span class="etat e-ko">Désactivé</span></td><td><a href="#">Réactiver</a></td></tr>
+      </table></div>
+    </main>
+  </div>
+</section>
+</body>
+</html>
