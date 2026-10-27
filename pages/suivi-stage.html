@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StageHub - etudiant suivi</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+<section id="etudiant-suivi">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="offres-stage.html">Offres</a><a href="mes-candidatures.html">Mes candidatures</a><a href="convention.html">Convention</a><a href="suivi-stage.html" class="actif">Suivi du stage</a><a href="notifications.html">Notifications</a><a href="mon-profil.html">Mon profil</a>
+      <div class="bas">Connecté : Étudiant<br><a href="../index.html">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Suivi de mon stage</h1>
+      <p class="sous">TechNord · Encadrant : Pr. Alaoui</p>
+      <div class="stats">
+        <div class="stat"><b>45%</b><span>Avancement</span></div>
+        <div class="stat"><b>8</b><span>Entrées de journal</span></div>
+        <div class="stat"><b>1</b><span>Rapport déposé</span></div>
+      </div>
+      <div class="carte"><h2>Journal de bord</h2>
+        <form action="suivi-stage.html">
+          <label for="etudiant-suivi-taches">Tâches réalisées</label><textarea id="etudiant-suivi-taches" name="taches_realisees"></textarea>
+          <label for="etudiant-suivi-diff">Difficultés rencontrées</label><textarea id="etudiant-suivi-diff" name="difficultes"></textarea>
+          <div class="actions"><button class="btn btn-bleu" type="submit">Ajouter l'entrée</button></div>
+        </form>
+      </div>
+      <div class="carte"><h2>Commentaires de l'encadrant</h2>
+        <div class="bulle"><small>Pr. Alaoui · 20/10/2026</small>Bon début, détaille davantage les difficultés rencontrées.</div>
+        <div class="bulle moi"><small>Moi · 21/10/2026</small>D'accord, je complète mon journal ce soir.</div>
+        <form action="suivi-stage.html"><label for="etudiant-suivi-rep">Répondre</label><textarea id="etudiant-suivi-rep" name="reponse"></textarea>
+          <div class="actions"><button class="btn btn-contour btn-petit" type="submit">Envoyer la réponse</button></div></form>
+      </div>
+      <div class="carte"><h2>Rapport final</h2>
+        <form action="suivi-stage.html" enctype="multipart/form-data"><input type="file" name="rapport" accept=".pdf">
+          <div class="actions"><button class="btn" type="submit">Déposer le rapport</button></div></form>
+      </div>
+      <div class="carte"><h2>Stages précédents</h2><p class="aide">Aucun stage précédent.</p></div>
+    </main>
+  </div>
+</section>
+</body>
+</html>
