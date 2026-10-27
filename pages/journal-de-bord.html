@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StageHub - encadrant journal</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+<section id="encadrant-journal">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="mes-stagiaires.html">Mes stagiaires</a><a href="validation-documents.html">Validation des documents</a><a href="journal-de-bord.html" class="actif">Journal de bord</a><a href="notifications.html">Notifications</a><a href="mon-profil.html">Mon profil</a>
+      <div class="bas">Connecté : Encadrant<br><a href="../index.html">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Journal de bord : Youssef Benali</h1>
+      <p class="sous">TechNord · Développeur web PHP</p>
+      <div class="carte"><h2>Entrées du journal</h2>
+        <ul class="fil">
+          <li><b>20/10/2026</b><small>Tâches : création des pages d'authentification. Difficultés : validation des formulaires.</small></li>
+          <li><b>13/10/2026</b><small>Tâches : installation de l'environnement. Difficultés : aucune.</small></li>
+        </ul>
+      </div>
+      <form class="carte" action="journal-de-bord.html">
+        <h2>Ajouter un feedback / commenter le suivi</h2><textarea name="feedback"></textarea>
+        <div class="actions"><button class="btn btn-bleu" type="submit">Envoyer</button></div>
+      </form>
+      <form class="carte" action="mes-stagiaires.html">
+        <h2>Noter le stagiaire</h2>
+        <div class="ligne2"><div><label for="encadrant-journal-note">Note (/20)</label><input type="number" id="encadrant-journal-note" name="note" min="0" max="20" step="0.5"></div>
+        <div><label for="encadrant-journal-app">Appréciation</label><input id="encadrant-journal-app" name="appreciation"></div></div>
+        <div class="actions"><button class="btn" type="submit">Enregistrer la note</button></div>
+      </form>
+    </main>
+  </div>
+</section>
+</body>
+</html>
