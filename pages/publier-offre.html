@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StageHub - entreprise publier</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+<section id="entreprise-publier">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="entreprise-mes-offres.html">Mes offres</a><a href="publier-offre.html" class="actif">Publier une offre</a><a href="candidatures-recues.html">Candidatures reçues</a><a href="evaluer-stagiaire.html">Évaluer un stagiaire</a><a href="notifications.html">Notifications</a><a href="mon-profil.html">Mon profil</a>
+      <div class="bas">Connecté : Entreprise<br><a href="../index.html">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Publier / modifier une offre</h1>
+      <p class="sous">Renseigne le titre, la description, la durée et la ville.</p>
+      <form class="carte" action="entreprise-mes-offres.html" enctype="multipart/form-data">
+        <label for="entreprise-publier-titre">Titre</label><input id="entreprise-publier-titre" name="titre" required>
+        <label for="entreprise-publier-desc">Description</label><textarea id="entreprise-publier-desc" name="description" required></textarea>
+        <div class="ligne2">
+          <div><label for="entreprise-publier-duree">Durée (mois)</label><input type="number" id="entreprise-publier-duree" name="duree_mois" min="1" max="12" required></div>
+          <div><label for="entreprise-publier-ville">Ville</label><input id="entreprise-publier-ville" name="ville" required></div>
+        </div>
+        <label for="entreprise-publier-doc">Document de présentation (facultatif)</label><input type="file" id="entreprise-publier-doc" name="document" accept=".pdf">
+        <div class="actions"><button class="btn btn-bleu" type="submit">Publier</button><a class="btn btn-contour" href="entreprise-mes-offres.html">Annuler</a></div>
+      </form>
+    </main>
+  </div>
+</section>
+</body>
+</html>
