@@ -1,0 +1,6 @@
+/* Styles pour les pages séparées de StageHub.
+   Le fichier style.css conserve les règles de l'ancienne maquette à sections.
+   Ici, chaque fichier HTML contient un seul écran qui doit rester visible. */
+section {
+  display: block !important;
+}
