@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StageHub - admin affectation</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+<section id="admin-affectation">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="gestion-comptes.html">Comptes</a><a href="affecter-encadrant.html" class="actif">Affectation encadrants</a><a href="statistiques.html">Statistiques</a><a href="notifications.html">Notifications</a>
+      <div class="bas">Connecté : Admin<br><a href="../index.html">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Affecter un encadrant</h1>
+      <p class="sous">Associe chaque stagiaire à un encadrant.</p>
+      <form class="carte" action="gestion-comptes.html">
+        <label for="admin-affectation-stag">Stagiaire</label><select id="admin-affectation-stag" name="stagiaire"><option>Youssef Benali</option><option>Sara El Idrissi</option></select>
+        <label for="admin-affectation-enc">Encadrant</label><select id="admin-affectation-enc" name="encadrant"><option>Pr. Alaoui</option><option>Pr. Bennani</option></select>
+        <div class="actions"><button class="btn btn-bleu" type="submit">Affecter</button></div>
+      </form>
+    </main>
+  </div>
+</section>
+</body>
+</html>
