@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StageHub</title>
+<style>
+/* StageHub - feuille de style commune */
+:root{--bleu:#3a4d96;--bleu2:#2a86c8;--sombre:#2b3a47;--texte:#1b232c;--gris:#667085;--ligne:#d9dee5;--fond:#f4f6f9;--blanc:#fff;--ok:#1f8a4c;--ko:#c0392b;--att:#b7791f;--rayon:12px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--fond);color:var(--texte);line-height:1.5}
+a{color:var(--bleu2);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:1.6rem;margin-bottom:.3rem}h2{font-size:1.15rem;margin-bottom:.8rem}
+.sous{color:var(--gris);margin-bottom:1.4rem}
+
+/* ----- Connexion / inscription ----- */
+.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,var(--bleu),var(--bleu2))}
+.auth-box{background:var(--blanc);width:100%;max-width:420px;border-radius:18px;padding:32px;box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.logo{font-weight:800;font-size:1.6rem;color:var(--bleu);letter-spacing:-.5px;margin-bottom:.2rem}
+.logo span{color:var(--bleu2)}
+.auth-box .sous{margin-bottom:1.2rem}
+
+/* ----- Formulaires ----- */
+label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--ligne);border-radius:8px;font:inherit;background:#fff}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--bleu2);border-color:transparent}
+textarea{min-height:100px;resize:vertical}
+.ligne2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.aide{font-size:.82rem;color:var(--gris);margin-top:4px}
+
+/* ----- Boutons ----- */
+.btn{display:inline-block;padding:10px 18px;border:0;border-radius:8px;font:inherit;font-weight:600;cursor:pointer;background:var(--sombre);color:#fff;text-align:center}
+.btn:hover{opacity:.9;text-decoration:none}
+.btn-bleu{background:var(--bleu2)}.btn-ok{background:var(--ok)}.btn-ko{background:var(--ko)}
+.btn-contour{background:#fff;color:var(--sombre);border:1px solid var(--ligne)}
+.btn-plein{width:100%;margin-top:18px}.btn-petit{padding:6px 12px;font-size:.85rem}
+.lien-bas{text-align:center;margin-top:16px;font-size:.9rem}
+
+/* ----- Structure de l'application ----- */
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+.menu{background:var(--sombre);color:#fff;padding:22px 16px;display:flex;flex-direction:column;gap:4px}
+.menu .logo{color:#fff;margin-bottom:18px}.menu .logo span{color:#7cc4f2}
+.menu a{color:#cdd6df;padding:10px 12px;border-radius:8px;font-weight:500}
+.menu a:hover,.menu a.actif{background:rgba(255,255,255,.12);color:#fff;text-decoration:none}
+.menu .bas{margin-top:auto;font-size:.85rem;color:#9fb0c0}
+.contenu{padding:28px 32px;max-width:1100px;width:100%}
+.entete{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+
+/* ----- Cartes, grilles, tableaux ----- */
+.carte{background:var(--blanc);border:1px solid var(--ligne);border-radius:var(--rayon);padding:18px;margin-bottom:16px}
+.grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:18px}
+.stat{background:#fff;border:1px solid var(--ligne);border-radius:var(--rayon);padding:16px}
+.stat b{display:block;font-size:1.8rem;color:var(--bleu)}.stat span{color:var(--gris);font-size:.88rem}
+.offre h3{font-size:1.05rem}.offre .meta{color:var(--gris);font-size:.88rem;margin:4px 0 10px}
+.filtres{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:10px;margin-bottom:18px}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--ligne);border-radius:var(--rayon);overflow:hidden}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--ligne);font-size:.92rem}
+th{background:#eef1f5;font-size:.82rem;text-transform:uppercase;letter-spacing:.4px;color:var(--gris)}
+tr:last-child td{border-bottom:0}
+.tableau{overflow-x:auto;margin-bottom:16px}
+.etat{display:inline-block;padding:3px 10px;border-radius:99px;font-size:.78rem;font-weight:700}
+.e-att{background:#fdf3dc;color:var(--att)}.e-ok{background:#dff3e7;color:var(--ok)}.e-ko{background:#fbe4e1;color:var(--ko)}
+.progress{height:10px;background:#e3e7ec;border-radius:99px;overflow:hidden;margin:6px 0}
+.progress i{display:block;height:100%;background:var(--bleu2)}
+.fil{list-style:none}.fil li{padding:10px 0;border-bottom:1px solid var(--ligne)}.fil li:last-child{border:0}
+.fil small{color:var(--gris);display:block}
+.bulle{background:#eef4fb;border-radius:10px;padding:10px 14px;margin:8px 0}.bulle.moi{background:#f1f1f1;margin-left:40px}
+.bulle small{color:var(--gris);display:block;margin-bottom:2px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+/* ----- Mobile ----- */
+@media(max-width:820px){
+ .app{grid-template-columns:1fr}
+ .menu{flex-direction:row;overflow-x:auto;padding:10px;gap:6px;position:sticky;top:0;z-index:5}
+ .menu .logo,.menu .bas{display:none}.menu a{white-space:nowrap}
+ .contenu{padding:18px 14px}.filtres,.ligne2{grid-template-columns:1fr}
+}
+
+/* ----- Une seule page : chaque écran est une section affichée via son lien (#nom) ----- */
+section{display:none}
+section:target{display:block}
+section#index{display:block}
+section:target ~ section#index{display:none}
+</style>
+</head>
+<body>
+<!-- Tous les écrans sont dans ce fichier. On passe de l'un à l'autre avec les liens (#nom). -->
+
+<section id="admin-affectation">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#admin-comptes">Comptes</a><a href="#admin-affectation" class="actif">Affectation encadrants</a><a href="#admin-stats">Statistiques</a><a href="#notifications">Notifications</a>
+      <div class="bas">Connecté : Admin<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Affecter un encadrant</h1>
+      <p class="sous">Associe chaque stagiaire à un encadrant.</p>
+      <form class="carte" action="#admin-comptes">
+        <label for="admin-affectation-stag">Stagiaire</label><select id="admin-affectation-stag" name="stagiaire"><option>Youssef Benali</option><option>Sara El Idrissi</option></select>
+        <label for="admin-affectation-enc">Encadrant</label><select id="admin-affectation-enc" name="encadrant"><option>Pr. Alaoui</option><option>Pr. Bennani</option></select>
+        <div class="actions"><button class="btn btn-bleu" type="submit">Affecter</button></div>
+      </form>
+    </main>
+  </div>
+</section>
+
+<section id="admin-comptes">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#admin-comptes" class="actif">Comptes</a><a href="#admin-affectation">Affectation encadrants</a><a href="#admin-stats">Statistiques</a><a href="#notifications">Notifications</a>
+      <div class="bas">Connecté : Admin<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Gestion des comptes</h1>
+      <p class="sous">Réinitialiser un mot de passe ou désactiver un compte.</p>
+      <div class="tableau"><table>
+        <tr><th>Nom</th><th>E-mail</th><th>Rôle</th><th>Compte</th><th>Actions</th></tr>
+        <tr><td>Youssef Benali</td><td>y.benali@exemple.ma</td><td>Étudiant</td><td><span class="etat e-ok">Actif</span></td><td><a href="#">Réinitialiser</a> · <a href="#">Désactiver</a></td></tr>
+        <tr><td>TechNord</td><td>contact@technord.ma</td><td>Entreprise</td><td><span class="etat e-ok">Actif</span></td><td><a href="#">Réinitialiser</a> · <a href="#">Désactiver</a></td></tr>
+        <tr><td>Pr. Alaoui</td><td>alaoui@univ.ma</td><td>Encadrant</td><td><span class="etat e-ko">Désactivé</span></td><td><a href="#">Réactiver</a></td></tr>
+      </table></div>
+    </main>
+  </div>
+</section>
+
+<section id="admin-stats">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#admin-comptes">Comptes</a><a href="#admin-affectation">Affectation encadrants</a><a href="#admin-stats" class="actif">Statistiques</a><a href="#notifications">Notifications</a>
+      <div class="bas">Connecté : Admin<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <div class="entete"><div><h1>Statistiques</h1><p class="sous">Vue d'ensemble de la plateforme.</p></div>
+        <div class="actions"><a class="btn btn-contour" href="#">Exporter en PDF</a><a class="btn btn-contour" href="#">Exporter en Excel</a></div></div>
+      <div class="stats">
+        <div class="stat"><b>124</b><span>Étudiants inscrits</span></div>
+        <div class="stat"><b>18</b><span>Entreprises</span></div>
+        <div class="stat"><b>46</b><span>Offres publiées</span></div>
+        <div class="stat"><b>31</b><span>Stages en cours</span></div>
+      </div>
+      <div class="carte"><h2>Candidatures par état</h2>
+        <p>Acceptées</p><div class="progress"><i style="width:35%"></i></div>
+        <p>En attente</p><div class="progress"><i style="width:50%"></i></div>
+        <p>Refusées</p><div class="progress"><i style="width:15%"></i></div>
+      </div>
+    </main>
+  </div>
+</section>
+
+<section id="encadrant-journal">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#encadrant-stagiaires">Mes stagiaires</a><a href="#encadrant-validation">Validation des documents</a><a href="#encadrant-journal" class="actif">Journal de bord</a><a href="#notifications">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Encadrant<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Journal de bord : Youssef Benali</h1>
+      <p class="sous">TechNord · Développeur web PHP</p>
+      <div class="carte"><h2>Entrées du journal</h2>
+        <ul class="fil">
+          <li><b>20/10/2026</b><small>Tâches : création des pages d'authentification. Difficultés : validation des formulaires.</small></li>
+          <li><b>13/10/2026</b><small>Tâches : installation de l'environnement. Difficultés : aucune.</small></li>
+        </ul>
+      </div>
+      <form class="carte" action="#encadrant-journal">
+        <h2>Ajouter un feedback / commenter le suivi</h2><textarea name="feedback"></textarea>
+        <div class="actions"><button class="btn btn-bleu" type="submit">Envoyer</button></div>
+      </form>
+      <form class="carte" action="#encadrant-stagiaires">
+        <h2>Noter le stagiaire</h2>
+        <div class="ligne2"><div><label for="encadrant-journal-note">Note (/20)</label><input type="number" id="encadrant-journal-note" name="note" min="0" max="20" step="0.5"></div>
+        <div><label for="encadrant-journal-app">Appréciation</label><input id="encadrant-journal-app" name="appreciation"></div></div>
+        <div class="actions"><button class="btn" type="submit">Enregistrer la note</button></div>
+      </form>
+    </main>
+  </div>
+</section>
+
+<section id="encadrant-stagiaires">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#encadrant-stagiaires" class="actif">Mes stagiaires</a><a href="#encadrant-validation">Validation des documents</a><a href="#encadrant-journal">Journal de bord</a><a href="#notifications">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Encadrant<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Mes stagiaires</h1>
+      <p class="sous">Les étudiants qui te sont affectés.</p>
+      <div class="tableau"><table>
+        <tr><th>Étudiant</th><th>Entreprise</th><th>Avancement</th><th>Note</th><th></th></tr>
+        <tr><td>Youssef Benali</td><td>TechNord</td><td style="min-width:160px"><div class="progress"><i style="width:45%"></i></div>45%</td><td>-</td><td><a href="#encadrant-journal">Voir le suivi</a></td></tr>
+        <tr><td>Sara El Idrissi</td><td>DataMaroc</td><td style="min-width:160px"><div class="progress"><i style="width:80%"></i></div>80%</td><td>16/20</td><td><a href="#encadrant-journal">Voir le suivi</a></td></tr>
+      </table></div>
+    </main>
+  </div>
+</section>
+
+<section id="encadrant-validation">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#encadrant-stagiaires">Mes stagiaires</a><a href="#encadrant-validation" class="actif">Validation des documents</a><a href="#encadrant-journal">Journal de bord</a><a href="#notifications">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Encadrant<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Validation des documents</h1>
+      <p class="sous">Conventions et rapports déposés par tes stagiaires.</p>
+      <div class="tableau"><table>
+        <tr><th>Étudiant</th><th>Document</th><th>Déposé le</th><th>État</th><th>Décision</th></tr>
+        <tr><td>Youssef Benali</td><td><a href="#">Convention.pdf</a></td><td>18/10/2026</td><td><span class="etat e-att">À valider</span></td>
+          <td><a class="btn btn-ok btn-petit" href="#">Valider</a> <a class="btn btn-ko btn-petit" href="#">Rejeter</a></td></tr>
+        <tr><td>Sara El Idrissi</td><td><a href="#">Rapport_final.pdf</a></td><td>22/10/2026</td><td><span class="etat e-ok">Validé</span></td><td>-</td></tr>
+      </table></div>
+      <form class="carte" action="#encadrant-validation">
+        <h2>Motif de rejet</h2><textarea name="commentaire" placeholder="Explique ce qu'il faut corriger..."></textarea>
+        <div class="actions"><button class="btn btn-ko" type="submit">Rejeter avec commentaire</button></div>
+      </form>
+    </main>
+  </div>
+</section>
+
+<section id="entreprise-candidatures">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#entreprise-offres">Mes offres</a><a href="#entreprise-publier">Publier une offre</a><a href="#entreprise-candidatures" class="actif">Candidatures reçues</a><a href="#entreprise-evaluation">Évaluer un stagiaire</a><a href="#notifications">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Entreprise<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Candidatures reçues</h1>
+      <p class="sous">Offre : Développeur web PHP</p>
+      <div class="tableau"><table>
+        <tr><th>Étudiant</th><th>Filière</th><th>CV</th><th>État</th><th>Décision</th></tr>
+        <tr><td>Sara El Idrissi</td><td>Génie informatique</td><td><a href="#">Voir le CV</a></td><td><span class="etat e-att">En attente</span></td>
+          <td><a class="btn btn-ok btn-petit" href="#">Accepter</a> <a class="btn btn-ko btn-petit" href="#">Refuser</a></td></tr>
+        <tr><td>Youssef Benali</td><td>Réseaux</td><td><a href="#">Voir le CV</a></td><td><span class="etat e-ok">Acceptée</span></td><td>-</td></tr>
+      </table></div>
+    </main>
+  </div>
+</section>
+
+<section id="entreprise-evaluation">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#entreprise-offres">Mes offres</a><a href="#entreprise-publier">Publier une offre</a><a href="#entreprise-candidatures">Candidatures reçues</a><a href="#entreprise-evaluation" class="actif">Évaluer un stagiaire</a><a href="#notifications">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Entreprise<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Évaluer le stagiaire</h1>
+      <p class="sous">Youssef Benali · Développeur web PHP</p>
+      <form class="carte" action="#entreprise-offres">
+        <label for="entreprise-evaluation-note">Note globale (sur 20)</label><input type="number" id="entreprise-evaluation-note" name="note" min="0" max="20" step="0.5" required>
+        <label for="entreprise-evaluation-assid">Assiduité</label><select id="entreprise-evaluation-assid" name="assiduite"><option>Très bien</option><option>Bien</option><option>Moyen</option><option>Insuffisant</option></select>
+        <label for="entreprise-evaluation-comm">Commentaire (facultatif)</label><textarea id="entreprise-evaluation-comm" name="commentaire"></textarea>
+        <div class="actions"><button class="btn btn-bleu" type="submit">Enregistrer l'évaluation</button></div>
+      </form>
+    </main>
+  </div>
+</section>
+
+<section id="entreprise-offres">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#entreprise-offres" class="actif">Mes offres</a><a href="#entreprise-publier">Publier une offre</a><a href="#entreprise-candidatures">Candidatures reçues</a><a href="#entreprise-evaluation">Évaluer un stagiaire</a><a href="#notifications">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Entreprise<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <div class="entete"><div><h1>Mes offres</h1><p class="sous">Offres publiées par ton entreprise.</p></div>
+        <a class="btn btn-bleu" href="#entreprise-publier">+ Publier une offre</a></div>
+      <div class="tableau"><table>
+        <tr><th>Titre</th><th>Ville</th><th>Durée</th><th>Candidatures</th><th>Actions</th></tr>
+        <tr><td>Développeur web PHP</td><td>Tanger</td><td>3 mois</td><td>7</td><td><a href="#entreprise-publier">Modifier</a> · <a href="#">Supprimer</a></td></tr>
+        <tr><td>Développeur mobile Flutter</td><td>Tanger</td><td>4 mois</td><td>3</td><td><a href="#entreprise-publier">Modifier</a> · <a href="#">Supprimer</a></td></tr>
+      </table></div>
+    </main>
+  </div>
+</section>
+
+<section id="entreprise-publier">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#entreprise-offres">Mes offres</a><a href="#entreprise-publier" class="actif">Publier une offre</a><a href="#entreprise-candidatures">Candidatures reçues</a><a href="#entreprise-evaluation">Évaluer un stagiaire</a><a href="#notifications">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Entreprise<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Publier / modifier une offre</h1>
+      <p class="sous">Renseigne le titre, la description, la durée et la ville.</p>
+      <form class="carte" action="#entreprise-offres" enctype="multipart/form-data">
+        <label for="entreprise-publier-titre">Titre</label><input id="entreprise-publier-titre" name="titre" required>
+        <label for="entreprise-publier-desc">Description</label><textarea id="entreprise-publier-desc" name="description" required></textarea>
+        <div class="ligne2">
+          <div><label for="entreprise-publier-duree">Durée (mois)</label><input type="number" id="entreprise-publier-duree" name="duree_mois" min="1" max="12" required></div>
+          <div><label for="entreprise-publier-ville">Ville</label><input id="entreprise-publier-ville" name="ville" required></div>
+        </div>
+        <label for="entreprise-publier-doc">Document de présentation (facultatif)</label><input type="file" id="entreprise-publier-doc" name="document" accept=".pdf">
+        <div class="actions"><button class="btn btn-bleu" type="submit">Publier</button><a class="btn btn-contour" href="#entreprise-offres">Annuler</a></div>
+      </form>
+    </main>
+  </div>
+</section>
+
+<section id="etudiant-candidatures">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#etudiant-offres">Offres</a><a href="#etudiant-candidatures" class="actif">Mes candidatures</a><a href="#etudiant-convention">Convention</a><a href="#etudiant-suivi">Suivi du stage</a><a href="#notifications">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Étudiant<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Mes candidatures</h1>
+      <p class="sous">Suis l'état de chacune de tes demandes.</p>
+      <div class="tableau"><table>
+        <tr><th>Offre</th><th>Entreprise</th><th>Date</th><th>État</th></tr>
+        <tr><td>Développeur web PHP</td><td>TechNord</td><td>12/10/2026</td><td><span class="etat e-ok">Acceptée</span></td></tr>
+        <tr><td>Stage data analyst</td><td>DataMaroc</td><td>14/10/2026</td><td><span class="etat e-att">En attente</span></td></tr>
+        <tr><td>Designer UI/UX</td><td>Pixel Studio</td><td>16/10/2026</td><td><span class="etat e-ko">Refusée</span></td></tr>
+      </table></div>
+      <p><a href="#etudiant-convention">Candidature acceptée : soumettre ma convention &rarr;</a></p>
+    </main>
+  </div>
+</section>
+
+<section id="etudiant-convention">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#etudiant-offres">Offres</a><a href="#etudiant-candidatures">Mes candidatures</a><a href="#etudiant-convention" class="actif">Convention</a><a href="#etudiant-suivi">Suivi du stage</a><a href="#notifications">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Étudiant<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Ma convention de stage</h1>
+      <p class="sous">État actuel : <span class="etat e-att">En cours de validation</span></p>
+      <form class="carte" action="#etudiant-suivi" enctype="multipart/form-data">
+        <h2>Informations de la convention</h2>
+        <label for="etudiant-convention-sujet">Sujet du stage</label><input id="etudiant-convention-sujet" name="sujet" value="Développement d'un module de gestion">
+        <label for="etudiant-convention-desc">Description</label><textarea id="etudiant-convention-desc" name="description"></textarea>
+        <div class="ligne2">
+          <div><label for="etudiant-convention-debut">Date de début</label><input type="date" id="etudiant-convention-debut" name="date_debut"></div>
+          <div><label for="etudiant-convention-fin">Date de fin</label><input type="date" id="etudiant-convention-fin" name="date_fin"></div>
+        </div>
+        <label for="etudiant-convention-contact">Contact en entreprise</label><input id="etudiant-convention-contact" name="contact_entreprise" placeholder="Nom, e-mail ou téléphone">
+        <div class="actions"><button class="btn btn-bleu" type="submit">Soumettre le formulaire</button></div>
+      </form>
+      <form class="carte" action="#etudiant-suivi" enctype="multipart/form-data">
+        <h2>Ou déposer la convention en PDF</h2>
+        <input type="file" name="fichier" accept=".pdf">
+        <div class="actions"><button class="btn" type="submit">Déposer le PDF</button></div>
+      </form>
+    </main>
+  </div>
+</section>
+
+<section id="etudiant-offre-detail">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#etudiant-offres">Offres</a><a href="#etudiant-candidatures">Mes candidatures</a><a href="#etudiant-convention">Convention</a><a href="#etudiant-suivi">Suivi du stage</a><a href="#notifications">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Étudiant<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <p><a href="#etudiant-offres">&larr; Retour aux offres</a></p>
+      <div class="entete"><div><h1>Développeur web PHP</h1><p class="sous">TechNord · Tanger · 3 mois</p></div>
+        <a class="btn btn-bleu" href="#etudiant-postuler">Postuler</a></div>
+      <div class="carte"><h2>Description</h2><p>Concevoir et développer des modules d'une application web de gestion interne.</p></div>
+      <div class="carte"><h2>Missions</h2><ul style="margin-left:18px"><li>Créer des pages et formulaires</li><li>Écrire des requêtes MySQL</li><li>Tester et documenter</li></ul></div>
+      <div class="carte"><h2>Compétences demandées</h2><p>PHP, MySQL, HTML/CSS</p></div>
+      <div class="carte"><h2>Document de présentation</h2><a href="#">Télécharger le PDF de l'offre</a></div>
+    </main>
+  </div>
+</section>
+
+<section id="etudiant-offres">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#etudiant-offres" class="actif">Offres</a><a href="#etudiant-candidatures">Mes candidatures</a><a href="#etudiant-convention">Convention</a><a href="#etudiant-suivi">Suivi du stage</a><a href="#notifications">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Étudiant<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Offres de stage</h1>
+      <p class="sous">Recherche et filtre les offres publiées par les entreprises.</p>
+      <form class="filtres" action="#etudiant-offres">
+        <input id="etudiant-offres-recherche" name="recherche" type="search" placeholder="Rechercher une offre...">
+        <select><option>Toutes les villes</option><option>Tanger</option><option>Casablanca</option><option>Rabat</option><option>Marrakech</option></select>
+        <select><option>Toutes les durées</option><option>2 mois</option><option>3 mois</option><option>4 mois</option><option>6 mois</option></select>
+        <button class="btn">Filtrer</button>
+      </form>
+      <div class="grille">
+      <article class="carte offre">
+        <h3>Développeur web PHP</h3>
+        <div class="meta">TechNord<br>Tanger · 3 mois</div>
+        <p>Concevoir et développer des modules d'une application web.</p>
+        <div class="actions"><a class="btn btn-contour btn-petit" href="#etudiant-offre-detail">Détail</a><a class="btn btn-bleu btn-petit" href="#etudiant-postuler">Postuler</a></div>
+      </article>
+      <article class="carte offre">
+        <h3>Stage data analyst</h3>
+        <div class="meta">DataMaroc<br>Casablanca · 4 mois</div>
+        <p>Analyse de données de vente et création de tableaux de bord.</p>
+        <div class="actions"><a class="btn btn-contour btn-petit" href="#etudiant-offre-detail">Détail</a><a class="btn btn-bleu btn-petit" href="#etudiant-postuler">Postuler</a></div>
+      </article>
+      <article class="carte offre">
+        <h3>Assistant gestion de projet</h3>
+        <div class="meta">Atlas Conseil<br>Rabat · 2 mois</div>
+        <p>Suivi de projets et rédaction de comptes rendus.</p>
+        <div class="actions"><a class="btn btn-contour btn-petit" href="#etudiant-offre-detail">Détail</a><a class="btn btn-bleu btn-petit" href="#etudiant-postuler">Postuler</a></div>
+      </article>
+      <article class="carte offre">
+        <h3>Stage réseaux et sécurité</h3>
+        <div class="meta">SecuNet<br>Casablanca · 6 mois</div>
+        <p>Supervision réseau et tests de sécurité.</p>
+        <div class="actions"><a class="btn btn-contour btn-petit" href="#etudiant-offre-detail">Détail</a><a class="btn btn-bleu btn-petit" href="#etudiant-postuler">Postuler</a></div>
+      </article>
+      <article class="carte offre">
+        <h3>Designer UI/UX</h3>
+        <div class="meta">Pixel Studio<br>Marrakech · 3 mois</div>
+        <p>Maquettes et prototypes d'applications mobiles.</p>
+        <div class="actions"><a class="btn btn-contour btn-petit" href="#etudiant-offre-detail">Détail</a><a class="btn btn-bleu btn-petit" href="#etudiant-postuler">Postuler</a></div>
+      </article>
+      <article class="carte offre">
+        <h3>Développeur mobile Flutter</h3>
+        <div class="meta">AppFactory<br>Tanger · 4 mois</div>
+        <p>Développement d'une application mobile.</p>
+        <div class="actions"><a class="btn btn-contour btn-petit" href="#etudiant-offre-detail">Détail</a><a class="btn btn-bleu btn-petit" href="#etudiant-postuler">Postuler</a></div>
+      </article>
+      </div>
+    </main>
+  </div>
+</section>
+
+<section id="etudiant-postuler">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#etudiant-offres">Offres</a><a href="#etudiant-candidatures">Mes candidatures</a><a href="#etudiant-convention">Convention</a><a href="#etudiant-suivi">Suivi du stage</a><a href="#notifications">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Étudiant<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <p><a href="#etudiant-offre-detail">&larr; Retour à l'offre</a></p>
+      <h1>Postuler : Développeur web PHP</h1>
+      <p class="sous">TechNord · Tanger · 3 mois</p>
+      <form class="carte" action="#etudiant-candidatures" enctype="multipart/form-data">
+        <label for="etudiant-postuler-cv">CV (PDF) *</label>
+        <input type="file" id="etudiant-postuler-cv" name="cv" accept=".pdf" required>
+        <label for="etudiant-postuler-lettre">Lettre de motivation (facultatif)</label>
+        <textarea id="etudiant-postuler-lettre" name="lettre_motivation" placeholder="Écris quelques lignes..."></textarea>
+        <p class="aide">L'entreprise recevra une notification par e-mail.</p>
+        <div class="actions"><button class="btn btn-bleu" type="submit">Envoyer ma candidature</button><a class="btn btn-contour" href="#etudiant-offres">Annuler</a></div>
+      </form>
+    </main>
+  </div>
+</section>
+
+<section id="etudiant-suivi">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#etudiant-offres">Offres</a><a href="#etudiant-candidatures">Mes candidatures</a><a href="#etudiant-convention">Convention</a><a href="#etudiant-suivi" class="actif">Suivi du stage</a><a href="#notifications">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Étudiant<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Suivi de mon stage</h1>
+      <p class="sous">TechNord · Encadrant : Pr. Alaoui</p>
+      <div class="stats">
+        <div class="stat"><b>45%</b><span>Avancement</span></div>
+        <div class="stat"><b>8</b><span>Entrées de journal</span></div>
+        <div class="stat"><b>1</b><span>Rapport déposé</span></div>
+      </div>
+      <div class="carte"><h2>Journal de bord</h2>
+        <form action="#etudiant-suivi">
+          <label for="etudiant-suivi-taches">Tâches réalisées</label><textarea id="etudiant-suivi-taches" name="taches_realisees"></textarea>
+          <label for="etudiant-suivi-diff">Difficultés rencontrées</label><textarea id="etudiant-suivi-diff" name="difficultes"></textarea>
+          <div class="actions"><button class="btn btn-bleu" type="submit">Ajouter l'entrée</button></div>
+        </form>
+      </div>
+      <div class="carte"><h2>Commentaires de l'encadrant</h2>
+        <div class="bulle"><small>Pr. Alaoui · 20/10/2026</small>Bon début, détaille davantage les difficultés rencontrées.</div>
+        <div class="bulle moi"><small>Moi · 21/10/2026</small>D'accord, je complète mon journal ce soir.</div>
+        <form action="#etudiant-suivi"><label for="etudiant-suivi-rep">Répondre</label><textarea id="etudiant-suivi-rep" name="reponse"></textarea>
+          <div class="actions"><button class="btn btn-contour btn-petit" type="submit">Envoyer la réponse</button></div></form>
+      </div>
+      <div class="carte"><h2>Rapport final</h2>
+        <form action="#etudiant-suivi" enctype="multipart/form-data"><input type="file" name="rapport" accept=".pdf">
+          <div class="actions"><button class="btn" type="submit">Déposer le rapport</button></div></form>
+      </div>
+      <div class="carte"><h2>Stages précédents</h2><p class="aide">Aucun stage précédent.</p></div>
+    </main>
+  </div>
+</section>
+
+<section id="inscription">
+  <div class="auth">
+    <div class="auth-box">
+      <div class="logo">Stage<span>Hub</span></div>
+      <p class="sous">Créer un compte</p>
+      <form action="#index">
+        <label for="inscription-role">Je suis</label>
+        <select id="inscription-role" name="role">
+          <option value="etudiant">Étudiant</option>
+          <option value="entreprise">Entreprise</option>
+        </select>
+        <div class="ligne2">
+          <div><label for="inscription-nom">Nom</label><input id="inscription-nom" name="nom" required></div>
+          <div><label for="inscription-prenom">Prénom</label><input id="inscription-prenom" name="prenom" required></div>
+        </div>
+        <label for="inscription-filiere">Filière (étudiants) / Raison sociale (entreprises)</label>
+        <input id="inscription-filiere" name="filiere">
+        <label for="inscription-email">Adresse e-mail</label>
+        <input type="email" id="inscription-email" name="email" required>
+        <label for="inscription-mdp">Mot de passe</label>
+        <input type="password" id="inscription-mdp" name="mot_de_passe" minlength="8" required>
+        <button class="btn btn-bleu btn-plein" type="submit">Créer mon compte</button>
+      </form>
+      <p class="lien-bas">Déjà inscrit ? <a href="#index">Se connecter</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="mot-de-passe-oublie">
+  <div class="auth">
+    <div class="auth-box">
+      <div class="logo">Stage<span>Hub</span></div>
+      <p class="sous">Entre ton e-mail, nous t'enverrons un lien pour réinitialiser ton mot de passe.</p>
+      <form action="#index">
+        <label for="mot-de-passe-oublie-email">Adresse e-mail</label>
+        <input type="email" id="mot-de-passe-oublie-email" name="email" required>
+        <button class="btn btn-bleu btn-plein" type="submit">Envoyer le lien</button>
+      </form>
+      <p class="lien-bas"><a href="#index">Retour à la connexion</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="notifications">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#etudiant-offres">Offres</a><a href="#etudiant-candidatures">Mes candidatures</a><a href="#etudiant-convention">Convention</a><a href="#etudiant-suivi">Suivi du stage</a><a href="#notifications" class="actif">Notifications</a><a href="#profil">Mon profil</a>
+      <div class="bas">Connecté : Étudiant<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Notifications</h1>
+      <p class="sous">Tes dernières alertes.</p>
+      <div class="carte"><ul class="fil">
+        <li><b>Candidature acceptée</b><small>TechNord a accepté ta candidature · il y a 2 h</small></li>
+        <li><b>Nouveau commentaire</b><small>Pr. Alaoui a commenté ton journal · hier</small></li>
+        <li><b>Convention à compléter</b><small>Pense à soumettre ta convention · il y a 3 jours</small></li>
+      </ul></div>
+    </main>
+  </div>
+</section>
+
+<section id="profil">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="#etudiant-offres">Offres</a><a href="#etudiant-candidatures">Mes candidatures</a><a href="#etudiant-convention">Convention</a><a href="#etudiant-suivi">Suivi du stage</a><a href="#notifications">Notifications</a><a href="#profil" class="actif">Mon profil</a>
+      <div class="bas">Connecté : Étudiant<br><a href="#index">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Mon profil</h1>
+      <p class="sous">Modifie tes informations personnelles.</p>
+      <form class="carte" action="#profil" enctype="multipart/form-data">
+        <div class="ligne2">
+          <div><label for="profil-nom">Nom</label><input id="profil-nom" name="nom" value="Benali"></div>
+          <div><label for="profil-prenom">Prénom</label><input id="profil-prenom" name="prenom" value="Youssef"></div>
+        </div>
+        <label for="profil-filiere">Filière</label><input id="profil-filiere" name="filiere" value="Génie informatique">
+        <label for="profil-comp">Compétences</label><input id="profil-comp" name="competences" value="PHP, MySQL">
+        <label for="profil-cv">Mettre à jour mon CV</label><input type="file" id="profil-cv" name="cv" accept=".pdf">
+        <div class="actions"><button class="btn btn-bleu" type="submit">Enregistrer</button></div>
+      </form>
+    </main>
+  </div>
+</section>
+
+<section id="index">
+  <div class="auth">
+    <div class="auth-box">
+      <div class="logo">Stage<span>Hub</span></div>
+      <p class="sous">Plateforme de gestion des stages et PFE</p>
+      <form action="#etudiant-offres">
+        <label for="index-email">Adresse e-mail</label>
+        <input type="email" id="index-email" name="email" required>
+        <label for="index-mdp">Mot de passe</label>
+        <input type="password" id="index-mdp" name="mot_de_passe" required>
+        <button class="btn btn-bleu btn-plein" type="submit">Se connecter</button>
+      </form>
+      <p class="lien-bas"><a href="#mot-de-passe-oublie">Mot de passe oublié ?</a></p>
+      <p class="lien-bas">Pas de compte ? <a href="#inscription">S'inscrire</a></p>
+      <p class="lien-bas" style="color:#999;font-size:.8rem">Aperçu des espaces :
+        <a href="#etudiant-offres">Étudiant</a> ·
+        <a href="#entreprise-offres">Entreprise</a> ·
+        <a href="#encadrant-stagiaires">Encadrant</a> ·
+        <a href="#admin-comptes">Admin</a></p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
