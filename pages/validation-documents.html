@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StageHub - encadrant validation</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+<section id="encadrant-validation">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="mes-stagiaires.html">Mes stagiaires</a><a href="validation-documents.html" class="actif">Validation des documents</a><a href="journal-de-bord.html">Journal de bord</a><a href="notifications.html">Notifications</a><a href="mon-profil.html">Mon profil</a>
+      <div class="bas">Connecté : Encadrant<br><a href="../index.html">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Validation des documents</h1>
+      <p class="sous">Conventions et rapports déposés par tes stagiaires.</p>
+      <div class="tableau"><table>
+        <tr><th>Étudiant</th><th>Document</th><th>Déposé le</th><th>État</th><th>Décision</th></tr>
+        <tr><td>Youssef Benali</td><td><a href="#">Convention.pdf</a></td><td>18/10/2026</td><td><span class="etat e-att">À valider</span></td>
+          <td><a class="btn btn-ok btn-petit" href="#">Valider</a> <a class="btn btn-ko btn-petit" href="#">Rejeter</a></td></tr>
+        <tr><td>Sara El Idrissi</td><td><a href="#">Rapport_final.pdf</a></td><td>22/10/2026</td><td><span class="etat e-ok">Validé</span></td><td>-</td></tr>
+      </table></div>
+      <form class="carte" action="validation-documents.html">
+        <h2>Motif de rejet</h2><textarea name="commentaire" placeholder="Explique ce qu'il faut corriger..."></textarea>
+        <div class="actions"><button class="btn btn-ko" type="submit">Rejeter avec commentaire</button></div>
+      </form>
+    </main>
+  </div>
+</section>
+</body>
+</html>
