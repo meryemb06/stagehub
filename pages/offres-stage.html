@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StageHub - etudiant offres</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+<section id="etudiant-offres">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="offres-stage.html" class="actif">Offres</a><a href="mes-candidatures.html">Mes candidatures</a><a href="convention.html">Convention</a><a href="suivi-stage.html">Suivi du stage</a><a href="notifications.html">Notifications</a><a href="mon-profil.html">Mon profil</a>
+      <div class="bas">Connecté : Étudiant<br><a href="../index.html">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Offres de stage</h1>
+      <p class="sous">Recherche et filtre les offres publiées par les entreprises.</p>
+      <form class="filtres" action="offres-stage.html">
+        <input id="etudiant-offres-recherche" name="recherche" type="search" placeholder="Rechercher une offre...">
+        <select><option>Toutes les villes</option><option>Tanger</option><option>Casablanca</option><option>Rabat</option><option>Marrakech</option></select>
+        <select><option>Toutes les durées</option><option>2 mois</option><option>3 mois</option><option>4 mois</option><option>6 mois</option></select>
+        <button class="btn">Filtrer</button>
+      </form>
+      <div class="grille">
+      <article class="carte offre">
+        <h3>Développeur web PHP</h3>
+        <div class="meta">TechNord<br>Tanger · 3 mois</div>
+        <p>Concevoir et développer des modules d'une application web.</p>
+        <div class="actions"><a class="btn btn-contour btn-petit" href="detail-offre.html">Détail</a><a class="btn btn-bleu btn-petit" href="postuler.html">Postuler</a></div>
+      </article>
+      <article class="carte offre">
+        <h3>Stage data analyst</h3>
+        <div class="meta">DataMaroc<br>Casablanca · 4 mois</div>
+        <p>Analyse de données de vente et création de tableaux de bord.</p>
+        <div class="actions"><a class="btn btn-contour btn-petit" href="detail-offre.html">Détail</a><a class="btn btn-bleu btn-petit" href="postuler.html">Postuler</a></div>
+      </article>
+      <article class="carte offre">
+        <h3>Assistant gestion de projet</h3>
+        <div class="meta">Atlas Conseil<br>Rabat · 2 mois</div>
+        <p>Suivi de projets et rédaction de comptes rendus.</p>
+        <div class="actions"><a class="btn btn-contour btn-petit" href="detail-offre.html">Détail</a><a class="btn btn-bleu btn-petit" href="postuler.html">Postuler</a></div>
+      </article>
+      <article class="carte offre">
+        <h3>Stage réseaux et sécurité</h3>
+        <div class="meta">SecuNet<br>Casablanca · 6 mois</div>
+        <p>Supervision réseau et tests de sécurité.</p>
+        <div class="actions"><a class="btn btn-contour btn-petit" href="detail-offre.html">Détail</a><a class="btn btn-bleu btn-petit" href="postuler.html">Postuler</a></div>
+      </article>
+      <article class="carte offre">
+        <h3>Designer UI/UX</h3>
+        <div class="meta">Pixel Studio<br>Marrakech · 3 mois</div>
+        <p>Maquettes et prototypes d'applications mobiles.</p>
+        <div class="actions"><a class="btn btn-contour btn-petit" href="detail-offre.html">Détail</a><a class="btn btn-bleu btn-petit" href="postuler.html">Postuler</a></div>
+      </article>
+      <article class="carte offre">
+        <h3>Développeur mobile Flutter</h3>
+        <div class="meta">AppFactory<br>Tanger · 4 mois</div>
+        <p>Développement d'une application mobile.</p>
+        <div class="actions"><a class="btn btn-contour btn-petit" href="detail-offre.html">Détail</a><a class="btn btn-bleu btn-petit" href="postuler.html">Postuler</a></div>
+      </article>
+      </div>
+    </main>
+  </div>
+</section>
+</body>
+</html>
