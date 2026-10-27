@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StageHub - etudiant convention</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+<section id="etudiant-convention">
+  <div class="app">
+    <nav class="menu">
+      <div class="logo">Stage<span>Hub</span></div>
+      <a href="offres-stage.html">Offres</a><a href="mes-candidatures.html">Mes candidatures</a><a href="convention.html" class="actif">Convention</a><a href="suivi-stage.html">Suivi du stage</a><a href="notifications.html">Notifications</a><a href="mon-profil.html">Mon profil</a>
+      <div class="bas">Connecté : Étudiant<br><a href="../index.html">Se déconnecter</a></div>
+    </nav>
+    <main class="contenu">
+      <h1>Ma convention de stage</h1>
+      <p class="sous">État actuel : <span class="etat e-att">En cours de validation</span></p>
+      <form class="carte" action="suivi-stage.html" enctype="multipart/form-data">
+        <h2>Informations de la convention</h2>
+        <label for="etudiant-convention-sujet">Sujet du stage</label><input id="etudiant-convention-sujet" name="sujet" value="Développement d'un module de gestion">
+        <label for="etudiant-convention-desc">Description</label><textarea id="etudiant-convention-desc" name="description"></textarea>
+        <div class="ligne2">
+          <div><label for="etudiant-convention-debut">Date de début</label><input type="date" id="etudiant-convention-debut" name="date_debut"></div>
+          <div><label for="etudiant-convention-fin">Date de fin</label><input type="date" id="etudiant-convention-fin" name="date_fin"></div>
+        </div>
+        <label for="etudiant-convention-contact">Contact en entreprise</label><input id="etudiant-convention-contact" name="contact_entreprise" placeholder="Nom, e-mail ou téléphone">
+        <div class="actions"><button class="btn btn-bleu" type="submit">Soumettre le formulaire</button></div>
+      </form>
+      <form class="carte" action="suivi-stage.html" enctype="multipart/form-data">
+        <h2>Ou déposer la convention en PDF</h2>
+        <input type="file" name="fichier" accept=".pdf">
+        <div class="actions"><button class="btn" type="submit">Déposer le PDF</button></div>
+      </form>
+    </main>
+  </div>
+</section>
+</body>
+</html>
