@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StageHub - inscription</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+<section id="inscription">
+  <div class="auth">
+    <div class="auth-box">
+      <div class="logo">Stage<span>Hub</span></div>
+      <p class="sous">Créer un compte</p>
+      <form action="../index.html">
+        <label for="inscription-role">Je suis</label>
+        <select id="inscription-role" name="role">
+          <option value="etudiant">Étudiant</option>
+          <option value="entreprise">Entreprise</option>
+        </select>
+        <div class="ligne2">
+          <div><label for="inscription-nom">Nom</label><input id="inscription-nom" name="nom" required></div>
+          <div><label for="inscription-prenom">Prénom</label><input id="inscription-prenom" name="prenom" required></div>
+        </div>
+        <label for="inscription-filiere">Filière (étudiants) / Raison sociale (entreprises)</label>
+        <input id="inscription-filiere" name="filiere">
+        <label for="inscription-email">Adresse e-mail</label>
+        <input type="email" id="inscription-email" name="email" required>
+        <label for="inscription-mdp">Mot de passe</label>
+        <input type="password" id="inscription-mdp" name="mot_de_passe" minlength="8" required>
+        <button class="btn btn-bleu btn-plein" type="submit">Créer mon compte</button>
+      </form>
+      <p class="lien-bas">Déjà inscrit ? <a href="../index.html">Se connecter</a></p>
+    </div>
+  </div>
+</section>
+</body>
+</html>
