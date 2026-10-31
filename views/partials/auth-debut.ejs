@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= titre %> · StageHub</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+<section>
+<div class="auth">
+<div class="auth-box<%= typeof large !== 'undefined' && large ? ' large' : '' %>">
+<div class="logo">Stage<span>Hub</span></div>
+<% if (flash) { %><div class="flash flash-<%= flash.type %>" role="status"><%= flash.message %></div><% } %>
+<% if (compteInactif) { %><div class="flash flash-ko" role="status">Ce compte est désactivé. Contacte l'administrateur.</div><% } %>

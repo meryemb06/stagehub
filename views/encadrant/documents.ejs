@@ -1,0 +1,37 @@
+<%- include('../partials/debut') %>
+<h1>Validation des documents</h1>
+<p class="sous">Conventions et rapports déposés par tes stagiaires.</p>
+<% if (!docs.length) { %>
+  <p class="aide">Aucun document déposé.</p>
+<% } %>
+<% docs.forEach(function (d) { %>
+  <article class="carte" data-document="<%= d.id %>" data-type="<%= d.type %>" data-etudiant="<%= d.prenom %> <%= d.nom %>">
+    <h2><%= d.type === 'rapport' ? 'Rapport final' : 'Convention' %> — <%= d.prenom %> <%= d.nom %></h2>
+    <p class="sous"><%= d.raison_sociale %> · <%= d.titre %></p>
+    <% if (d.sujet) { %><p><b>Sujet :</b> <%= d.sujet %></p><% } %>
+    <p>Déposé le <%= dateFr(d.depose_le) %> · <%- badge('document', d.statut) %></p>
+    <% if (d.fichier_stocke) { %>
+      <p><a href="/fichiers/document/<%= d.id %>">Télécharger <%= d.fichier_nom || 'le fichier' %></a></p>
+    <% } else { %>
+      <p class="aide">Aucun fichier joint, seulement les informations saisies par l'étudiant.</p>
+    <% } %>
+    <% if (d.statut === 'rejete' && d.commentaire) { %>
+      <div class="bulle"><small>Motif envoyé</small><%- nl2br(d.commentaire) %></div>
+    <% } %>
+    <% if (d.statut === 'en_attente') { %>
+      <div class="actions">
+        <form method="post" action="/encadrant/documents/<%= d.id %>/valider">
+          <%- include('../partials/csrf') %>
+          <button class="btn btn-ok" type="submit">Valider</button>
+        </form>
+      </div>
+      <form method="post" action="/encadrant/documents/<%= d.id %>/rejeter">
+        <%- include('../partials/csrf') %>
+        <label for="com-<%= d.id %>">Motif de rejet</label>
+        <textarea id="com-<%= d.id %>" name="commentaire" required placeholder="Explique ce qu'il faut corriger..."></textarea>
+        <div class="actions"><button class="btn btn-ko" type="submit">Rejeter avec commentaire</button></div>
+      </form>
+    <% } %>
+  </article>
+<% }) %>
+<%- include('../partials/fin') %>

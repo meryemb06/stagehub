@@ -1,0 +1,26 @@
+<%- include('partials/debut') %>
+<h1>Mon profil</h1>
+<p class="sous">Modifie tes informations. L'adresse e-mail sert à te connecter et ne change pas ici.</p>
+<form class="carte" method="post" action="/profil" enctype="multipart/form-data">
+  <%- include('partials/csrf') %>
+  <% if (profil.role === 'entreprise') { %>
+    <label for="raison">Raison sociale</label>
+    <input id="raison" name="raison_sociale" required maxlength="140" value="<%= profil.raison_sociale %>">
+  <% } %>
+  <div class="ligne2">
+    <div><label for="nom">Nom</label><input id="nom" name="nom" required maxlength="80" value="<%= profil.nom %>"></div>
+    <div><label for="prenom">Prénom</label><input id="prenom" name="prenom" required maxlength="80" value="<%= profil.prenom %>"></div>
+  </div>
+  <% if (profil.role === 'etudiant') { %>
+    <label for="filiere">Filière</label>
+    <input id="filiere" name="filiere" required maxlength="120" value="<%= profil.filiere %>">
+    <label for="competences">Compétences</label>
+    <input id="competences" name="competences" maxlength="500" value="<%= profil.competences %>">
+    <label for="cv">Mettre à jour mon CV</label>
+    <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx">
+    <% if (profil.cv_nom) { %><p class="aide">CV actuel : <%= profil.cv_nom %></p><% } %>
+  <% } %>
+  <p class="aide">E-mail : <%= profil.email %></p>
+  <div class="actions"><button class="btn btn-bleu" type="submit">Enregistrer</button></div>
+</form>
+<%- include('partials/fin') %>

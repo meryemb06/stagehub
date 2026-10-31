@@ -1,0 +1,67 @@
+<%- include('../partials/debut') %>
+<h1>Mes documents</h1>
+<p class="sous">Convention de stage et rapport final, pour chaque stage en cours.</p>
+<% if (!stages.length) { %>
+  <div class="carte"><p>Aucune convention à déposer : une entreprise doit d'abord accepter ta candidature.</p><p><a href="/candidatures">Voir mes candidatures</a></p></div>
+<% } else { %>
+  <% if (stages.length > 1) { %>
+    <form method="get" action="/documents" class="filtres">
+      <select name="stage" aria-label="Stage">
+        <% stages.forEach(function (s) { %>
+          <option value="<%= s.id %>" <%= stage && stage.id === s.id ? 'selected' : '' %>><%= s.titre %> — <%= s.raison_sociale %></option>
+        <% }) %>
+      </select>
+      <button class="btn" type="submit">Afficher</button>
+    </form>
+  <% } %>
+  <% if (stage) { %>
+    <p class="sous"><%= stage.raison_sociale %> · <%= stage.titre %>
+      <% if (stage.enc_nom) { %> · Encadrant : Pr. <%= stage.enc_nom %><% } else { %> · Encadrant pas encore affecté<% } %>
+    </p>
+    <div class="carte" <% if (stage.etat.conv) { %>data-document="<%= stage.etat.conv.id %>"<% } %>>
+      <h2>Convention de stage</h2>
+      <p>État actuel : <% if (stage.etat.conv) { %><%- badge('document', stage.etat.conv.statut) %><% } else { %><span class="etat e-att">Non déposée</span><% } %></p>
+      <% if (stage.etat.conv && stage.etat.conv.statut === 'rejete' && stage.etat.conv.commentaire) { %>
+        <div class="bulle"><small>Motif du rejet</small><%- nl2br(stage.etat.conv.commentaire) %></div>
+      <% } %>
+      <% if (stage.etat.conv && stage.etat.conv.fichier_stocke) { %>
+        <p><a href="/fichiers/document/<%= stage.etat.conv.id %>">Télécharger <%= stage.etat.conv.fichier_nom || 'la convention' %></a></p>
+      <% } %>
+      <form action="/documents/convention" method="post" enctype="multipart/form-data">
+        <%- include('../partials/csrf') %>
+        <input type="hidden" name="stage_id" value="<%= stage.id %>">
+        <label for="sujet">Sujet du stage</label>
+        <input id="sujet" name="sujet" required maxlength="180" value="<%= stage.sujet || stage.titre %>">
+        <label for="description">Description</label>
+        <textarea id="description" name="description"><%= stage.description_convention || '' %></textarea>
+        <div class="ligne2">
+          <div><label for="date_debut">Date de début</label><input type="date" id="date_debut" name="date_debut" value="<%= stage.date_debut || '' %>"></div>
+          <div><label for="date_fin">Date de fin</label><input type="date" id="date_fin" name="date_fin" value="<%= stage.date_fin || '' %>"></div>
+        </div>
+        <label for="contact">Contact en entreprise</label>
+        <input id="contact" name="contact_entreprise" maxlength="180" value="<%= stage.contact_entreprise || '' %>" placeholder="Nom, e-mail ou téléphone">
+        <label for="fichier-conv">Fichier de la convention (PDF, DOC ou DOCX)</label>
+        <input type="file" id="fichier-conv" name="fichier" accept=".pdf,.doc,.docx">
+        <div class="actions"><button class="btn btn-bleu" type="submit">Enregistrer la convention</button></div>
+      </form>
+    </div>
+    <div class="carte" <% if (stage.etat.rap) { %>data-rapport="<%= stage.etat.rap.id %>"<% } %>>
+      <h2>Rapport final</h2>
+      <p>État actuel : <% if (stage.etat.rap) { %><%- badge('document', stage.etat.rap.statut) %><% } else { %><span class="etat e-att">Non déposé</span><% } %></p>
+      <% if (stage.etat.rap && stage.etat.rap.statut === 'rejete' && stage.etat.rap.commentaire) { %>
+        <div class="bulle"><small>Motif du rejet</small><%- nl2br(stage.etat.rap.commentaire) %></div>
+      <% } %>
+      <% if (stage.etat.rap && stage.etat.rap.fichier_stocke) { %>
+        <p><a href="/fichiers/document/<%= stage.etat.rap.id %>">Télécharger <%= stage.etat.rap.fichier_nom || 'le rapport' %></a></p>
+      <% } %>
+      <form action="/documents/rapport" method="post" enctype="multipart/form-data">
+        <%- include('../partials/csrf') %>
+        <input type="hidden" name="stage_id" value="<%= stage.id %>">
+        <label for="fichier-rap">Déposer le rapport</label>
+        <input type="file" id="fichier-rap" name="fichier" accept=".pdf,.doc,.docx" required>
+        <div class="actions"><button class="btn" type="submit">Déposer le rapport</button></div>
+      </form>
+    </div>
+  <% } %>
+<% } %>
+<%- include('../partials/fin') %>

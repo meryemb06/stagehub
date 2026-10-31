@@ -1,0 +1,32 @@
+<%- include('../partials/debut') %>
+<h1><%= offre ? 'Modifier une offre' : 'Publier une offre' %></h1>
+<p class="sous">Renseigne le titre, la description, la durée, la ville, et joins un document de présentation si tu en as un.</p>
+<form class="carte" method="post" enctype="multipart/form-data" action="<%= offre ? '/entreprise/offres/' + offre.id : '/entreprise/offres' %>">
+  <%- include('../partials/csrf') %>
+  <label for="titre">Titre</label>
+  <input id="titre" name="titre" required maxlength="140" value="<%= offre ? offre.titre : '' %>">
+  <label for="description">Description</label>
+  <textarea id="description" name="description" required><%= offre ? offre.description : '' %></textarea>
+  <label for="missions">Missions (une par ligne)</label>
+  <textarea id="missions" name="missions"><%= offre ? offre.missions : '' %></textarea>
+  <label for="competences">Compétences demandées</label>
+  <input id="competences" name="competences" maxlength="500" value="<%= offre ? offre.competences : '' %>">
+  <div class="ligne2">
+    <div>
+      <label for="duree">Durée (mois)</label>
+      <input type="number" id="duree" name="duree_mois" min="1" max="12" required value="<%= offre ? offre.duree_mois : '' %>">
+    </div>
+    <div>
+      <label for="ville">Ville</label>
+      <input id="ville" name="ville" required maxlength="80" value="<%= offre ? offre.ville : '' %>">
+    </div>
+  </div>
+  <label for="document">Document de présentation (PDF, DOC ou DOCX, facultatif)</label>
+  <input type="file" id="document" name="document" accept=".pdf,.doc,.docx">
+  <% if (offre && offre.document_nom) { %><p class="aide">Document actuel : <a href="/fichiers/offre/<%= offre.id %>"><%= offre.document_nom %></a>. Un nouveau fichier le remplace.</p><% } %>
+  <div class="actions">
+    <button class="btn btn-bleu" type="submit"><%= offre ? 'Enregistrer' : 'Publier' %></button>
+    <a class="btn btn-contour" href="/entreprise/offres">Annuler</a>
+  </div>
+</form>
+<%- include('../partials/fin') %>

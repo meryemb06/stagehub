@@ -1,0 +1,34 @@
+<nav class="menu">
+  <div class="logo">Stage<span>Hub</span></div>
+  <% if (user.role === 'etudiant') { %>
+    <a href="/offres" class="<%= active === 'offres' ? 'actif' : '' %>">Offres</a>
+    <a href="/candidatures" class="<%= active === 'candidatures' ? 'actif' : '' %>">Mes candidatures</a>
+    <a href="/documents" class="<%= active === 'documents' ? 'actif' : '' %>">Documents</a>
+    <a href="/suivi" class="<%= active === 'suivi' ? 'actif' : '' %>">Suivi du stage</a>
+    <a href="/historique" class="<%= active === 'historique' ? 'actif' : '' %>">Stages précédents</a>
+  <% } else if (user.role === 'entreprise') { %>
+    <a href="/entreprise/offres" class="<%= active === 'offres' ? 'actif' : '' %>">Mes offres</a>
+    <a href="/entreprise/offres/nouvelle" class="<%= active === 'publier' ? 'actif' : '' %>">Publier une offre</a>
+    <a href="/entreprise/candidatures" class="<%= active === 'candidatures' ? 'actif' : '' %>">Candidatures reçues</a>
+    <a href="/entreprise/evaluations" class="<%= active === 'evaluations' ? 'actif' : '' %>">Évaluer un stagiaire</a>
+  <% } else if (user.role === 'encadrant') { %>
+    <a href="/encadrant/stagiaires" class="<%= active === 'stagiaires' ? 'actif' : '' %>">Mes stagiaires</a>
+    <a href="/encadrant/documents" class="<%= active === 'documents' ? 'actif' : '' %>">Validation des documents</a>
+  <% } else if (user.role === 'admin') { %>
+    <a href="/admin/comptes" class="<%= active === 'comptes' ? 'actif' : '' %>">Comptes</a>
+    <a href="/admin/affectations" class="<%= active === 'affectations' ? 'actif' : '' %>">Affectation encadrants</a>
+    <a href="/admin/statistiques" class="<%= active === 'stats' ? 'actif' : '' %>">Statistiques</a>
+  <% } %>
+  <% if (user.role !== 'admin') { %>
+    <a href="/notifications" class="<%= active === 'notifications' ? 'actif' : '' %>">Notifications<% if (notifCount) { %> (<%= notifCount %>)<% } %></a>
+    <a href="/profil" class="<%= active === 'profil' ? 'actif' : '' %>">Mon profil</a>
+  <% } %>
+  <div class="bas">
+    Connecté : <%= nomAffiche(user) %><br>
+    <%= user.email %>
+    <form class="deco" method="post" action="/deconnexion">
+      <%- include('csrf') %>
+      <button type="submit">Se déconnecter</button>
+    </form>
+  </div>
+</nav>

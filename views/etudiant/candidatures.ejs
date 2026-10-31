@@ -1,0 +1,20 @@
+<%- include('../partials/debut') %>
+<h1>Mes candidatures</h1>
+<p class="sous">Suis l'état de chacune de tes demandes.</p>
+<% if (!candidatures.length) { %>
+  <p class="aide">Tu n'as pas encore postulé. <a href="/offres">Voir les offres</a></p>
+<% } else { %>
+<div class="tableau"><table>
+  <tr><th>Offre</th><th>Entreprise</th><th>Date</th><th>État</th></tr>
+  <% candidatures.forEach(function (c) { %>
+    <tr>
+      <td><%= c.titre %><br><span class="aide"><%= c.ville %> · <%= c.duree_mois %> mois</span></td>
+      <td><%= c.raison_sociale %></td>
+      <td><%= dateFr(c.cree_le) %></td>
+      <td><%- badge('candidature', c.statut) %></td>
+    </tr>
+  <% }) %>
+</table></div>
+<p><a href="/documents">Candidature acceptée : déposer ma convention et mon rapport &rarr;</a></p>
+<% } %>
+<%- include('../partials/fin') %>

@@ -1,0 +1,22 @@
+<%- include('../partials/debut') %>
+<p><a href="/entreprise/evaluations">&larr; Retour aux stagiaires</a></p>
+<h1>Évaluer le stagiaire</h1>
+<p class="sous"><%= stage.prenom %> <%= stage.nom %> · <%= stage.titre %><% if (stage.filiere) { %> · <%= stage.filiere %><% } %></p>
+<form class="carte" method="post" action="/entreprise/stages/<%= stage.id %>/evaluation">
+  <%- include('../partials/csrf') %>
+  <label for="note">Note globale (sur 20)</label>
+  <input type="number" id="note" name="note" min="0" max="20" step="0.5" required value="<%= stage.note_entreprise == null ? '' : stage.note_entreprise %>">
+  <% [['assiduite', 'Assiduité'], ['competences_tech', 'Compétences techniques'], ['autonomie', 'Autonomie'], ['communication', 'Communication'], ['qualite', 'Qualité du travail']].forEach(function (pair) { %>
+    <label for="<%= pair[0] %>"><%= pair[1] %></label>
+    <select id="<%= pair[0] %>" name="<%= pair[0] %>" required>
+      <option value="">Choisir</option>
+      <% niveaux.forEach(function (n) { %>
+        <option value="<%= n %>" <%= stage[pair[0]] === n ? 'selected' : '' %>><%= n %></option>
+      <% }) %>
+    </select>
+  <% }) %>
+  <label for="commentaire">Commentaire (facultatif)</label>
+  <textarea id="commentaire" name="commentaire"><%= stage.commentaire_entreprise || '' %></textarea>
+  <div class="actions"><button class="btn btn-bleu" type="submit">Enregistrer l'évaluation</button></div>
+</form>
+<%- include('../partials/fin') %>

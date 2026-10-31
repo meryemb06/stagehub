@@ -1,0 +1,19 @@
+/* Compléments d'écran pour l'application StageHub. */
+section { display: block; }
+
+.auth-box.large { max-width: 520px; }
+.flash { padding: 12px 14px; border-radius: 8px; margin-bottom: 14px; font-weight: 600; }
+.flash-ok { background: #dff3e7; color: #146c36; }
+.flash-ko { background: #fbe4e1; color: #922b21; }
+.demo { margin-top: 18px; border-top: 1px solid var(--ligne); padding-top: 12px; text-align: left; }
+.demo h2 { font-size: .95rem; margin-bottom: 4px; }
+.demo form { display: flex; justify-content: space-between; gap: 8px; align-items: center; margin: 8px 0; }
+.demo span { font-size: .82rem; color: var(--gris); display: block; }
+.demo button { width: auto; margin: 0; white-space: nowrap; }
+.checklist { list-style: none; }
+.checklist li { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--ligne); }
+.checklist li:last-child { border-bottom: 0; }
+td form { display: inline; }
+.sep { border: 0; border-top: 1px solid var(--ligne); margin: 16px 0; }
+.petit-form textarea { min-height: 70px; }
+.badge-compte { margin-left: 6px; }

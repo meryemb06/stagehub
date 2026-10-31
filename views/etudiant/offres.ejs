@@ -1,0 +1,40 @@
+<%- include('../partials/debut') %>
+<h1>Offres de stage</h1>
+<p class="sous">Recherche et filtre les offres publiées par les entreprises.</p>
+<form class="filtres" method="get" action="/offres">
+  <input id="recherche" name="recherche" type="search" value="<%= recherche %>" placeholder="Rechercher une offre...">
+  <select name="ville" aria-label="Ville">
+    <option value="">Toutes les villes</option>
+    <% villes.forEach(function (v) { %>
+      <option value="<%= v %>" <%= ville === v ? 'selected' : '' %>><%= v %></option>
+    <% }) %>
+  </select>
+  <select name="duree" aria-label="Durée">
+    <option value="">Toutes les durées</option>
+    <% durees.forEach(function (d) { %>
+      <option value="<%= d %>" <%= String(duree) === String(d) ? 'selected' : '' %>><%= d %> mois</option>
+    <% }) %>
+  </select>
+  <button class="btn" type="submit">Filtrer</button>
+</form>
+<% if (!offres.length) { %>
+  <p class="aide">Aucune offre ne correspond à ta recherche.</p>
+<% } %>
+<div class="grille">
+<% offres.forEach(function (o) { %>
+  <article class="carte offre" data-offre="<%= o.id %>" data-titre="<%= o.titre %>">
+    <h3><%= o.titre %></h3>
+    <div class="meta"><%= o.raison_sociale %><br><%= o.ville %> · <%= o.duree_mois %> mois</div>
+    <p><%= o.description %></p>
+    <div class="actions">
+      <a class="btn btn-contour btn-petit" href="/offres/<%= o.id %>">Détail</a>
+      <% if (o.deja) { %>
+        <span class="etat <%= o.deja === 'acceptee' ? 'e-ok' : o.deja === 'refusee' ? 'e-ko' : 'e-att' %>"><%= o.deja === 'acceptee' ? 'Acceptée' : o.deja === 'refusee' ? 'Refusée' : 'Déjà postulé' %></span>
+      <% } else { %>
+        <a class="btn btn-bleu btn-petit" href="/offres/<%= o.id %>/postuler">Postuler</a>
+      <% } %>
+    </div>
+  </article>
+<% }) %>
+</div>
+<%- include('../partials/fin') %>

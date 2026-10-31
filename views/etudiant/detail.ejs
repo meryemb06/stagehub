@@ -1,0 +1,28 @@
+<%- include('../partials/debut') %>
+<p><a href="/offres">&larr; Retour aux offres</a></p>
+<div class="entete">
+  <div>
+    <h1><%= offre.titre %></h1>
+    <p class="sous"><%= offre.raison_sociale %> · <%= offre.ville %> · <%= offre.duree_mois %> mois</p>
+  </div>
+  <% if (offre.deja) { %>
+    <%- badge('candidature', offre.deja) %>
+  <% } else { %>
+    <a class="btn btn-bleu" href="/offres/<%= offre.id %>/postuler">Postuler</a>
+  <% } %>
+</div>
+<div class="carte"><h2>Description</h2><p><%- nl2br(offre.description) %></p></div>
+<% if (lignes(offre.missions).length) { %>
+<div class="carte"><h2>Missions</h2><ul style="margin-left:18px"><% lignes(offre.missions).forEach(function (m) { %><li><%= m %></li><% }) %></ul></div>
+<% } %>
+<% if (offre.competences) { %>
+<div class="carte"><h2>Compétences demandées</h2><p><%= offre.competences %></p></div>
+<% } %>
+<div class="carte"><h2>Document de présentation</h2>
+  <% if (offre.document_stocke) { %>
+    <a href="/fichiers/offre/<%= offre.id %>">Télécharger <%= offre.document_nom || 'le PDF' %></a>
+  <% } else { %>
+    <p class="aide">Aucun document joint.</p>
+  <% } %>
+</div>
+<%- include('../partials/fin') %>

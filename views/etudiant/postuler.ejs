@@ -1,0 +1,24 @@
+<%- include('../partials/debut') %>
+<p><a href="/offres/<%= offre.id %>">&larr; Retour à l'offre</a></p>
+<h1>Postuler : <%= offre.titre %></h1>
+<p class="sous"><%= offre.raison_sociale %> · <%= offre.ville %> · <%= offre.duree_mois %> mois</p>
+<% if (offre.deja) { %>
+  <div class="carte"><p>Tu as déjà envoyé une candidature pour cette offre.</p><p><a href="/candidatures">Voir mes candidatures</a></p></div>
+<% } else { %>
+<form class="carte" action="/offres/<%= offre.id %>/postuler" method="post" enctype="multipart/form-data">
+  <%- include('../partials/csrf') %>
+  <label for="cv">CV (PDF, DOC ou DOCX) <%= user.cv_nom ? '' : '*' %></label>
+  <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" <%= user.cv_nom ? '' : 'required' %>>
+  <% if (user.cv_nom) { %><p class="aide">CV déjà enregistré : <%= user.cv_nom %>. Tu peux en déposer un nouveau.</p><% } %>
+  <label for="lettre">Lettre de motivation *</label>
+  <textarea id="lettre" name="lettre" required minlength="20" placeholder="Explique en quelques lignes pourquoi cette offre t'intéresse."></textarea>
+  <label for="convention">Convention de stage (facultatif)</label>
+  <input type="file" id="convention" name="convention" accept=".pdf,.doc,.docx">
+  <p class="aide">Tu pourras aussi déposer la convention après l'acceptation de ta candidature.</p>
+  <div class="actions">
+    <button class="btn btn-bleu" type="submit">Envoyer ma candidature</button>
+    <a class="btn btn-contour" href="/offres">Annuler</a>
+  </div>
+</form>
+<% } %>
+<%- include('../partials/fin') %>
