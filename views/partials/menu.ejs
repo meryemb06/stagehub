@@ -17,41 +17,42 @@ function icone(nom) {
 }
 %>
 <nav class="menu">
-  <div class="logo"><span class="sceau" aria-hidden="true"></span>Stage<span>Hub</span></div>
+  <div class="liens">
   <% if (user.role === 'etudiant') { %>
-    <a href="/offres" class="<%= active === 'offres' ? 'actif' : '' %>"><%- icone('offres') %>Offres</a>
-    <a href="/candidatures" class="<%= active === 'candidatures' ? 'actif' : '' %>"><%- icone('dossier') %>Mes candidatures</a>
+    <a href="/offres" class="<%= active === 'offres' ? 'actif' : '' %>"><%- icone('offres') %>Découvrir</a>
+    <a href="/candidatures" class="<%= active === 'candidatures' ? 'actif' : '' %>"><%- icone('dossier') %>Candidatures</a>
     <a href="/documents" class="<%= active === 'documents' ? 'actif' : '' %>"><%- icone('doc') %>Documents</a>
-    <a href="/suivi" class="<%= active === 'suivi' ? 'actif' : '' %>"><%- icone('suivi') %>Suivi du stage</a>
-    <a href="/historique" class="<%= active === 'historique' ? 'actif' : '' %>"><%- icone('hist') %>Stages précédents</a>
+    <a href="/suivi" class="<%= active === 'suivi' ? 'actif' : '' %>"><%- icone('suivi') %>Suivi</a>
+    <a href="/historique" class="<%= active === 'historique' ? 'actif' : '' %>"><%- icone('hist') %>Passés</a>
   <% } else if (user.role === 'entreprise') { %>
-    <a href="/entreprise/offres" class="<%= active === 'offres' ? 'actif' : '' %>"><%- icone('offres') %>Mes offres</a>
-    <a href="/entreprise/offres/nouvelle" class="<%= active === 'publier' ? 'actif' : '' %>"><%- icone('plus') %>Publier une offre</a>
-    <a href="/entreprise/candidatures" class="<%= active === 'candidatures' ? 'actif' : '' %>"><%- icone('dossier') %>Candidatures reçues</a>
-    <a href="/entreprise/evaluations" class="<%= active === 'evaluations' ? 'actif' : '' %>"><%- icone('etoile') %>Évaluer un stagiaire</a>
+    <a href="/entreprise/offres" class="<%= active === 'offres' ? 'actif' : '' %>"><%- icone('offres') %>Offres</a>
+    <a href="/entreprise/offres/nouvelle" class="<%= active === 'publier' ? 'actif' : '' %>"><%- icone('plus') %>Publier</a>
+    <a href="/entreprise/candidatures" class="<%= active === 'candidatures' ? 'actif' : '' %>"><%- icone('dossier') %>Dossiers</a>
+    <a href="/entreprise/evaluations" class="<%= active === 'evaluations' ? 'actif' : '' %>"><%- icone('etoile') %>Évaluer</a>
   <% } else if (user.role === 'encadrant') { %>
-    <a href="/encadrant/stagiaires" class="<%= active === 'stagiaires' ? 'actif' : '' %>"><%- icone('user') %>Mes stagiaires</a>
-    <a href="/encadrant/documents" class="<%= active === 'documents' ? 'actif' : '' %>"><%- icone('doc') %>Validation des documents</a>
+    <a href="/encadrant/stagiaires" class="<%= active === 'stagiaires' ? 'actif' : '' %>"><%- icone('user') %>Stagiaires</a>
+    <a href="/encadrant/documents" class="<%= active === 'documents' ? 'actif' : '' %>"><%- icone('doc') %>Documents</a>
   <% } else if (user.role === 'admin') { %>
     <a href="/admin/comptes" class="<%= active === 'comptes' ? 'actif' : '' %>"><%- icone('user') %>Comptes</a>
-    <a href="/admin/affectations" class="<%= active === 'affectations' ? 'actif' : '' %>"><%- icone('lien') %>Affectation encadrants</a>
+    <a href="/admin/affectations" class="<%= active === 'affectations' ? 'actif' : '' %>"><%- icone('lien') %>Affectations</a>
     <a href="/admin/statistiques" class="<%= active === 'stats' ? 'actif' : '' %>"><%- icone('stats') %>Statistiques</a>
   <% } %>
   <% if (user.role !== 'admin') { %>
-    <a href="/notifications" class="<%= active === 'notifications' ? 'actif' : '' %>"><%- icone('cloche') %>Notifications<% if (notifCount) { %> (<%= notifCount %>)<% } %></a>
-    <a href="/profil" class="<%= active === 'profil' ? 'actif' : '' %>"><%- icone('user') %>Mon profil</a>
+    <a href="/notifications" class="<%= active === 'notifications' ? 'actif' : '' %>"><%- icone('cloche') %>Alertes<% if (notifCount) { %> (<%= notifCount %>)<% } %></a>
+    <a href="/profil" class="<%= active === 'profil' ? 'actif' : '' %>"><%- icone('user') %>Profil</a>
   <% } %>
+  </div>
   <div class="bas">
-    <div class="qui">
+    <div class="qui" title="<%= user.email %>">
       <span class="avatar"><%= (user.prenom || user.nom || 'S').slice(0, 1).toUpperCase() %></span>
       <div>
         <strong><%= nomAffiche(user) %></strong>
-        <small><%= roleLabel(user.role) %><br><%= user.email %></small>
+        <small><%= roleLabel(user.role) %></small>
       </div>
     </div>
     <form class="deco" method="post" action="/deconnexion">
       <%- include('csrf') %>
-      <button type="submit">Se déconnecter</button>
+      <button type="submit">Sortir</button>
     </form>
   </div>
 </nav>

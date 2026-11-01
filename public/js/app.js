@@ -27,14 +27,12 @@
     const cible = Number(match[1]);
     const suffixe = match[2];
     const debut = performance.now();
-    const duree = 700;
     function pas(instant) {
-      const p = Math.min(1, (instant - debut) / duree);
-      const valeur = Math.round((1 - Math.pow(1 - p, 3)) * cible);
-      noeud.textContent = valeur + suffixe;
+      const p = Math.min(1, (instant - debut) / 700);
+      noeud.textContent = Math.round((1 - Math.pow(1 - p, 3)) * cible) + suffixe;
       if (p < 1) requestAnimationFrame(pas);
     }
-    noeud.textContent = '0' + suffixe;
+    noeud.textContent = `0${suffixe}`;
     requestAnimationFrame(pas);
   });
 })();

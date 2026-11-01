@@ -1,42 +1,62 @@
 <%- include('../partials/debut') %>
-<p class="kicker">Catalogue</p>
-<h1>Offres de stage</h1>
-<p class="sous">Recherche et filtre les offres publiées par les entreprises.</p>
-<form class="filtres" method="get" action="/offres">
-  <input id="recherche" name="recherche" type="search" value="<%= recherche %>" placeholder="Rechercher une offre...">
-  <select name="ville" aria-label="Ville">
-    <option value="">Toutes les villes</option>
-    <% villes.forEach(function (v) { %>
-      <option value="<%= v %>" <%= ville === v ? 'selected' : '' %>><%= v %></option>
-    <% }) %>
-  </select>
-  <select name="duree" aria-label="Durée">
-    <option value="">Toutes les durées</option>
-    <% durees.forEach(function (d) { %>
-      <option value="<%= d %>" <%= String(duree) === String(d) ? 'selected' : '' %>><%= d %> mois</option>
-    <% }) %>
-  </select>
-  <button class="btn" type="submit">Filtrer</button>
-</form>
-<% if (!offres.length) { %>
-  <p class="aide">Aucune offre ne correspond à ta recherche.</p>
-<% } %>
-<div class="grille">
-<% offres.forEach(function (o) { %>
-  <article class="carte offre" data-offre="<%= o.id %>" data-titre="<%= o.titre %>">
-    <p class="enseigne"><%= o.raison_sociale %></p>
-    <h3><%= o.titre %></h3>
-    <div class="meta"><span class="timbre"><%= o.ville %></span><span class="timbre"><%= o.duree_mois %> mois</span></div>
-    <p class="resume"><%= o.description %></p>
-    <div class="actions">
-      <a class="btn btn-contour btn-petit" href="/offres/<%= o.id %>">Détail</a>
-      <% if (o.deja) { %>
-        <span class="etat <%= o.deja === 'acceptee' ? 'e-ok' : o.deja === 'refusee' ? 'e-ko' : 'e-att' %>"><%= o.deja === 'acceptee' ? 'Acceptée' : o.deja === 'refusee' ? 'Refusée' : 'Déjà postulé' %></span>
-      <% } else { %>
-        <a class="btn btn-bleu btn-petit" href="/offres/<%= o.id %>/postuler">Postuler</a>
-      <% } %>
+<section class="plateau">
+  <div class="plateau-tete">
+    <div>
+      <p class="kicker">Découvrir</p>
+      <h1>Le bon stage.<span>Ton geste.</span></h1>
     </div>
-  </article>
-<% }) %>
-</div>
+    <p class="compteur"><b data-reste><%= offres.length %></b> dans la pile</p>
+  </div>
+  <form class="filtres" method="get" action="/offres">
+    <input id="recherche" name="recherche" type="search" value="<%= recherche %>" placeholder="Mot-clé, compétence, entreprise">
+    <select name="ville" aria-label="Ville">
+      <option value="">Toutes les villes</option>
+      <% villes.forEach(function (v) { %>
+        <option value="<%= v %>" <%= ville === v ? 'selected' : '' %>><%= v %></option>
+      <% }) %>
+    </select>
+    <select name="duree" aria-label="Durée">
+      <option value="">Toutes les durées</option>
+      <% durees.forEach(function (d) { %>
+        <option value="<%= d %>" <%= String(duree) === String(d) ? 'selected' : '' %>><%= d %> mois</option>
+      <% }) %>
+    </select>
+    <button class="btn btn-bleu" type="submit">Affiner</button>
+  </form>
+  <% if (!offres.length) { %>
+    <p class="vide-pile">Aucune offre ne correspond. Élargis la ville ou le mot-clé.</p>
+  <% } else { %>
+  <div class="piste" id="piste">
+  <% offres.forEach(function (o, i) { %>
+    <article class="carte-swipe teinte-<%= i % 4 %>" data-offre="<%= o.id %>" data-titre="<%= o.titre %>">
+      <span class="tampon passer">Passer</span>
+      <span class="tampon garder">Garder</span>
+      <p class="enseigne"><%= o.raison_sociale %></p>
+      <h2><%= o.titre %></h2>
+      <div class="meta"><span class="timbre"><%= o.ville %></span><span class="timbre"><%= o.duree_mois %> mois</span></div>
+      <p class="resume"><%= o.description %></p>
+      <div class="actions">
+        <a data-role="detail" href="/offres/<%= o.id %>">Détail</a>
+        <% if (o.deja) { %>
+          <span class="etat <%= o.deja === 'acceptee' ? 'e-ok' : o.deja === 'refusee' ? 'e-ko' : 'e-att' %>"><%= o.deja === 'acceptee' ? 'Acceptée' : o.deja === 'refusee' ? 'Refusée' : 'Déjà postulé' %></span>
+        <% } else { %>
+          <a data-role="postuler" href="/offres/<%= o.id %>/postuler">Postuler</a>
+        <% } %>
+      </div>
+    </article>
+  <% }) %>
+  </div>
+  <p class="pile-vide" id="pile-vide" hidden>Tu as parcouru toute la pile.</p>
+  <div class="gestes">
+    <button type="button" class="btn btn-contour" data-geste="passer">Passer</button>
+    <a class="btn btn-contour" data-geste="detail" href="/offres">Détail</a>
+    <button type="button" class="btn btn-bleu" data-geste="garder">Garder</button>
+    <button type="button" class="btn btn-contour" data-geste="revoir" hidden>Revoir la pile</button>
+  </div>
+  <div class="selection" id="selection">
+    <h2>Ta sélection</h2>
+    <ul></ul>
+  </div>
+  <% } %>
+</section>
 <%- include('../partials/fin') %>
