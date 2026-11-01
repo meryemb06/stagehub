@@ -1,0 +1,8 @@
+{
+  "name": "stagehub",
+  "private": true,
+  "scripts": {
+    "start": "php -S 0.0.0.0:3000 -t public public/router.php",
+    "test": "php tests/parcours.php"
+  }
+}

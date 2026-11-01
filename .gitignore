@@ -1,0 +1,7 @@
+node_modules/
+storage/*.sqlite
+storage/*.sqlite-*
+storage/uploads/**
+!storage/uploads/.gitkeep
+data/
+/uploads/
