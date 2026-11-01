@@ -1,6 +1,7 @@
 <%- include('../partials/debut') %>
 <div class="entete">
   <div>
+    <p class="kicker">Pilotage</p>
     <h1>Statistiques</h1>
     <p class="sous">Chiffres calculés à partir des données de la plateforme.</p>
   </div>
@@ -19,12 +20,17 @@
 </div>
 <div class="carte">
   <h2>Candidatures par état</h2>
+  <div class="anneau-ligne">
+    <div class="anneau" style="--okp: <%= stats.acceptees.pct %>; --attp: <%= stats.enAttente.pct %>" role="img" aria-label="Répartition des candidatures"></div>
+    <div>
   <p>Acceptées (<%= stats.acceptees.n %>)</p>
   <div class="progress"><i style="width:<%= stats.acceptees.pct %>%"></i></div>
   <p>En attente (<%= stats.enAttente.n %>)</p>
   <div class="progress"><i style="width:<%= stats.enAttente.pct %>%"></i></div>
   <p>Refusées (<%= stats.refusees.n %>)</p>
   <div class="progress"><i style="width:<%= stats.refusees.pct %>%"></i></div>
+    </div>
+  </div>
 </div>
 <div class="ligne2">
   <div class="carte">

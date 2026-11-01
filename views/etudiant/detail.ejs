@@ -1,9 +1,10 @@
 <%- include('../partials/debut') %>
 <p><a href="/offres">&larr; Retour aux offres</a></p>
-<div class="entete">
+<div class="hero-offre">
   <div>
+    <p class="kicker"><%= offre.raison_sociale %></p>
     <h1><%= offre.titre %></h1>
-    <p class="sous"><%= offre.raison_sociale %> · <%= offre.ville %> · <%= offre.duree_mois %> mois</p>
+    <p class="sous"><%= offre.ville %> · <%= offre.duree_mois %> mois</p>
   </div>
   <% if (offre.deja) { %>
     <%- badge('candidature', offre.deja) %>

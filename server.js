@@ -45,7 +45,7 @@ async function createApp() {
     res.setHeader('X-Frame-Options', 'DENY');
     next();
   });
-  app.use('/css', express.static(path.join(__dirname, 'public', 'css')));
+  app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.urlencoded({ extended: false }));
   app.use(session({
     secret: process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex'),

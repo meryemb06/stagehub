@@ -1,19 +1,114 @@
-/* Compléments d'écran pour l'application StageHub. */
-section { display: block; }
-
+.portail {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  background: var(--encre);
+  position: relative;
+  z-index: 1;
+}
+.vitrine {
+  position: relative;
+  overflow: hidden;
+  color: #fff8f2;
+  min-height: 100vh;
+  background:
+    radial-gradient(500px 280px at 80% 20%, rgba(226, 91, 42, .35), transparent 60%),
+    linear-gradient(165deg, #2c221b, #100e0c 70%);
+}
+#toile { position: absolute; inset: 0; width: 100%; height: 100%; }
+.vitrine-inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 48px 56px 64px;
+  max-width: 680px;
+}
+.vitrine .logo { color: #fff; font-size: 1.7rem; }
+.vitrine h1 { font-size: clamp(2.6rem, 5vw, 4.4rem); max-width: 11ch; margin: 18px 0 12px; }
+.vitrine p.lede { font-size: 1.12rem; color: #f0e2d4; max-width: 36ch; }
+.piliers { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.piliers li {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(8px);
+  font-size: .86rem;
+}
+.panneau {
+  background:
+    radial-gradient(500px 220px at 100% 0%, rgba(226, 91, 42, .12), transparent 50%),
+    var(--papier);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 22px;
+}
+.auth-box {
+  width: min(520px, 100%);
+  background: transparent;
+  box-shadow: none;
+  padding: 12px 8px;
+}
 .auth-box.large { max-width: 520px; }
-.flash { padding: 12px 14px; border-radius: 8px; margin-bottom: 14px; font-weight: 600; }
-.flash-ok { background: #dff3e7; color: #146c36; }
-.flash-ko { background: #fbe4e1; color: #922b21; }
-.demo { margin-top: 18px; border-top: 1px solid var(--ligne); padding-top: 12px; text-align: left; }
-.demo h2 { font-size: .95rem; margin-bottom: 4px; }
-.demo form { display: flex; justify-content: space-between; gap: 8px; align-items: center; margin: 8px 0; }
-.demo span { font-size: .82rem; color: var(--gris); display: block; }
-.demo button { width: auto; margin: 0; white-space: nowrap; }
-.checklist { list-style: none; }
-.checklist li { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--ligne); }
-.checklist li:last-child { border-bottom: 0; }
-td form { display: inline; }
-.sep { border: 0; border-top: 1px solid var(--ligne); margin: 16px 0; }
-.petit-form textarea { min-height: 70px; }
-.badge-compte { margin-left: 6px; }
+.marque-mobile { display: none; }
+.demo { margin-top: 22px; }
+.demo h2 { font-size: 1rem; }
+.demo-grille { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.demo form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  padding: 12px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid var(--ligne);
+  box-shadow: 0 8px 20px rgba(22, 19, 15, .04);
+}
+.demo span { font-size: .8rem; color: var(--gris); }
+.demo strong { color: var(--encre); font-size: .92rem; }
+.demo button { width: 100%; }
+
+.anneau-ligne { display: grid; grid-template-columns: 180px 1fr; gap: 22px; align-items: center; }
+.anneau {
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--pin) 0 calc(var(--okp) * 1%),
+    var(--or) 0 calc((var(--okp) + var(--attp)) * 1%),
+    var(--ko) 0 100%
+  );
+  -webkit-mask: radial-gradient(circle, transparent 58%, #000 60%);
+  mask: radial-gradient(circle, transparent 58%, #000 60%);
+  margin: 8px auto;
+}
+.hero-offre {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-end;
+  padding: 22px 22px 18px;
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(22, 19, 15, .92), rgba(60, 32, 18, .88)),
+    var(--encre);
+  color: #fff8f2;
+  margin: 8px 0 18px;
+  box-shadow: var(--ombre);
+}
+.hero-offre h1, .hero-offre .sous, .hero-offre a { color: #fff8f2; }
+.hero-offre .sous { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .portail { grid-template-columns: 1fr; }
+  .vitrine { min-height: 280px; }
+  .vitrine-inner { padding: 28px 22px 32px; }
+  .vitrine h1 { font-size: 2.3rem; }
+  .demo-grille, .anneau-ligne { grid-template-columns: 1fr; }
+}

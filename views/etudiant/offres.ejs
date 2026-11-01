@@ -1,4 +1,5 @@
 <%- include('../partials/debut') %>
+<p class="kicker">Catalogue</p>
 <h1>Offres de stage</h1>
 <p class="sous">Recherche et filtre les offres publiées par les entreprises.</p>
 <form class="filtres" method="get" action="/offres">
@@ -23,9 +24,10 @@
 <div class="grille">
 <% offres.forEach(function (o) { %>
   <article class="carte offre" data-offre="<%= o.id %>" data-titre="<%= o.titre %>">
+    <p class="enseigne"><%= o.raison_sociale %></p>
     <h3><%= o.titre %></h3>
-    <div class="meta"><%= o.raison_sociale %><br><%= o.ville %> · <%= o.duree_mois %> mois</div>
-    <p><%= o.description %></p>
+    <div class="meta"><span class="timbre"><%= o.ville %></span><span class="timbre"><%= o.duree_mois %> mois</span></div>
+    <p class="resume"><%= o.description %></p>
     <div class="actions">
       <a class="btn btn-contour btn-petit" href="/offres/<%= o.id %>">Détail</a>
       <% if (o.deja) { %>

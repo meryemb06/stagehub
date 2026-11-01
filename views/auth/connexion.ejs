@@ -1,4 +1,6 @@
 <%- include('../partials/auth-debut', { large: true }) %>
+<p class="kicker">Connexion</p>
+<h1>Reprendre le fil.</h1>
 <p class="sous">Plateforme de gestion des stages et PFE</p>
 <form action="/connexion" method="post">
   <%- include('../partials/csrf') %>
@@ -14,6 +16,7 @@
 <div class="demo">
   <h2>Comptes de démonstration</h2>
   <p class="aide">Mot de passe commun : <%= demoPassword %></p>
+  <div class="demo-grille">
   <% demos.forEach(function (demo) { %>
     <form method="post" action="/connexion">
       <%- include('../partials/csrf') %>
@@ -23,6 +26,7 @@
       <button class="btn btn-contour btn-petit" type="submit">Entrer</button>
     </form>
   <% }) %>
+  </div>
 </div>
 <% } %>
 <%- include('../partials/auth-fin') %>

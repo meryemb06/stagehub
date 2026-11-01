@@ -4,13 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><%= titre %> · StageHub</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/pages.css">
 </head>
 <body>
-<section>
-<div class="auth">
+<div class="portail">
+<aside class="vitrine">
+  <canvas id="toile" aria-hidden="true"></canvas>
+  <div class="vitrine-inner">
+    <div class="logo"><span class="sceau" aria-hidden="true"></span>Stage<span>Hub</span></div>
+    <h1>Le stage, enfin en scène.</h1>
+    <p class="lede">Une seule plateforme pour publier, postuler, suivre le journal et noter. Étudiants, entreprises, encadrants.</p>
+    <ul class="piliers">
+      <li>Offres vivantes</li>
+      <li>Dossiers suivis</li>
+      <li>Journal de bord</li>
+      <li>Notes de fin</li>
+    </ul>
+  </div>
+</aside>
+<main class="panneau">
 <div class="auth-box<%= typeof large !== 'undefined' && large ? ' large' : '' %>">
-<div class="logo">Stage<span>Hub</span></div>
+<p class="kicker marque-mobile">StageHub</p>
 <% if (flash) { %><div class="flash flash-<%= flash.type %>" role="status"><%= flash.message %></div><% } %>
 <% if (compteInactif) { %><div class="flash flash-ko" role="status">Ce compte est désactivé. Contacte l'administrateur.</div><% } %>
