@@ -1,16 +1,17 @@
-INSTALLATION (XAMPP)
-1. Lancer Apache et MySQL dans XAMPP.
-2. Copier le dossier "stagehub" dans C:\xampp\htdocs\
-3. Ouvrir http://localhost/phpmyadmin, onglet "Importer", choisir database.sql, cliquer sur "Importer".
-   (Si une ancienne base "stagehub" existe, la supprimer d'abord pour repartir de zéro.)
-4. Ouvrir http://localhost/stagehub/creer_comptes_test.php (une seule fois), puis supprimer ce fichier.
+INSTALLATION SUR LOCALHOST (XAMPP)
+À faire sur l'ordinateur qui exécute le projet.
+
+1. Lancer Apache et MySQL dans le panneau XAMPP.
+2. Extraire le zip. Copier le dossier "stagehub" dans C:\xampp\htdocs\
+   Le chemin final doit être : C:\xampp\htdocs\stagehub\
+3. Ouvrir http://localhost/phpmyadmin
+   Si une base "stagehub" existe déjà, la supprimer.
+   Onglet Importer, choisir le fichier database.sql qui se trouve dans le dossier stagehub, puis Importer.
+4. Ouvrir http://localhost/stagehub/creer_comptes_test.php une seule fois.
 5. Ouvrir http://localhost/stagehub/
 
-Si MySQL n'utilise pas le compte root sans mot de passe, définir avant le lancement :
-STAGEHUB_DB_HOST, STAGEHUB_DB_NAME, STAGEHUB_DB_USER, STAGEHUB_DB_PASS.
-
-Base déjà importée : exécuter migration_suite.sql (description de convention, dates du stage, notifications).
-Ne pas versionner les PDF déposés dans uploads/.
+La connexion utilise le compte XAMPP par défaut : utilisateur root, mot de passe vide.
+Si MySQL a un mot de passe, le modifier dans config.php (variables $dbUser et $dbPass).
 
 COMPTES DE TEST
 Admin     : admin@stagehub.ma     / admin123
@@ -22,8 +23,8 @@ SCÉNARIO DE TEST COMPLET (pour la démonstration)
 2. Étudiant   : s'inscrire, postuler à l'offre (CV en PDF).
 3. Entreprise : accepter la candidature (un stage est créé).
 4. Admin      : "Affecter un encadrant" au stage.
-5. Étudiant   : "Mon stage" > déposer la convention, écrire dans le journal, déposer le rapport.
+5. Étudiant   : Accueil, déposer la convention, écrire dans le journal, déposer le rapport.
 6. Encadrant  : "Mes stagiaires" > Ouvrir > valider la convention et le rapport, donner un feedback, un commentaire et une note.
 7. Entreprise : "Évaluer le stagiaire" (le stage passe à TERMINE).
-8. Étudiant   : "Mes stages précédents".
+8. Étudiant   : "Stages précédents" dans le profil.
 9. Admin      : "Statistiques" > export CSV.
