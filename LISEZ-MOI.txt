@@ -1,0 +1,30 @@
+INSTALLATION SUR LOCALHOST (XAMPP)
+À faire sur l'ordinateur qui exécute le projet.
+
+1. Lancer Apache et MySQL dans le panneau XAMPP.
+2. Extraire le zip. Copier le dossier "stagehub" dans C:\xampp\htdocs\
+   Le chemin final doit être : C:\xampp\htdocs\stagehub\
+3. Ouvrir http://localhost/phpmyadmin
+   Si une base "stagehub" existe déjà, la supprimer.
+   Onglet Importer, choisir le fichier database.sql qui se trouve dans le dossier stagehub, puis Importer.
+4. Ouvrir http://localhost/stagehub/creer_comptes_test.php une seule fois.
+5. Ouvrir http://localhost/stagehub/
+
+La connexion utilise le compte XAMPP par défaut : utilisateur root, mot de passe vide.
+Si MySQL a un mot de passe, le modifier dans config.php (variables $dbUser et $dbPass).
+
+COMPTES DE TEST
+Admin     : admin@stagehub.ma     / admin123
+Encadrant : encadrant@stagehub.ma / encadrant123
+Étudiants et entreprises : créez-les avec la page d'inscription.
+
+SCÉNARIO DE TEST COMPLET (pour la démonstration)
+1. Entreprise : s'inscrire, publier une offre.
+2. Étudiant   : s'inscrire, postuler à l'offre (CV en PDF).
+3. Entreprise : accepter la candidature (un stage est créé).
+4. Admin      : "Affecter un encadrant" au stage.
+5. Étudiant   : Accueil, déposer la convention, écrire dans le journal, déposer le rapport.
+6. Encadrant  : "Mes stagiaires" > Ouvrir > valider la convention et le rapport, donner un feedback, un commentaire et une note.
+7. Entreprise : "Évaluer le stagiaire" (le stage passe à TERMINE).
+8. Étudiant   : "Stages précédents" dans le profil.
+9. Admin      : "Statistiques" > export CSV.

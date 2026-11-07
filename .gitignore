@@ -1,0 +1,8 @@
+uploads/cv/*
+uploads/lettres/*
+uploads/conventions/*
+uploads/rapports/*
+!uploads/cv/.gitkeep
+!uploads/lettres/.gitkeep
+!uploads/conventions/.gitkeep
+!uploads/rapports/.gitkeep
